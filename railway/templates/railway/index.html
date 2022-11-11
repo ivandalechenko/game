@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    {% if request.user.is_authenticated %}
+        <h1><a href="{% url 'railway_create_game' %}">Создать игру</a></h1>
+        <h1>
+            <form action="{% url 'railway_join_game' %}" method="get">
+                <br>
+                <input type="number" name="game_id">
+                <br>
+                <button type="submit">Войти в игру</button>
+            </form>
+        </h1>
+    {% endif %}
+</body>
+</html>

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Регистрация</title>
+</head>
+<body>
+<h1><a href="{% url 'home' %}">Главная</a></h1>
+<h1>Регистрация</h1>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p  }}
+    <button type="submit" class="btn btn-primary btn-block">Зарегистрироваться</button>
+</form>
+
+</body>
+</html>

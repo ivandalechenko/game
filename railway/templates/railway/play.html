@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <title>mamgo</title>
+
+    <!-- <link href="https://marksheet.io/css/reset.css" type="text/css" rel="stylesheet"> -->
+    <link href="{% static 'railway/css/style.css' %}" type="text/css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <div id="game_field" class="dnone">      
+        <img src="{% static 'railway/img/new_textures/scores.jpg' %}" class='scores block_center dblock' alt="">
+        <table class = 'block_center' style="font-size: 13px;">
+            <tr>
+                <!-- <td class="scores_element" valign="middle" align="center">Ход: </td> -->
+                <!-- <td class="scores_element" valign="middle" align="center" id="move_num">0</td> -->
+                <td class="scores_element" valign="middle" align="center">Ex: </td>
+                <td class="scores_element" valign="middle" align="center" id="exit_points">0</td>
+                <td class="scores_element" valign="middle" align="center">Rds: </td>
+                <td class="scores_element" valign="middle" align="center" id="route_points1">0</td>
+                <td class="scores_element" valign="middle" align="center">Rls: </td>
+                <td class="scores_element" valign="middle" align="center" id="route_points-1">0</td>
+                <td class="scores_element" valign="middle" align="center">Ctr: </td>
+                <td class="scores_element" valign="middle" align="center" id="center_points">0</td>
+                <td class="scores_element" valign="middle" align="center">Mns: </td>
+                <td class="scores_element" valign="middle" align="center" id="minus_points">0</td>
+                <td class="scores_element" valign="middle" align="center">Scr: </td>
+                <td class="scores_element" valign="middle" align="center" id="score">0</td>
+            </tr>
+        </table>
+        <br>
+        <div id="fone" class="cells_container block_center">
+        {% for i in range %}
+            <div class="m0">
+            {% for j in range %}
+                <img src="{% static 'railway/img/new_textures/'%}meow.png" id="cell{{ j }}{{ i }}" class="transition route_element" alt="">
+            {% endfor %}
+            </div>
+        {% endfor %}
+        </div>
+    </div>
+    <br>
+    <div id="tales_block" class="dnone"> 
+        <div class="block_center dblock w320">
+            <img id="route0" class="img_route trans hw57 mlrv" alt="">
+            <img id="route1" class="img_route trans hw57 mlrv" alt="">
+            <img id="route2" class="img_route trans hw57 mlrv" alt="">
+            <img id="route3" class="img_route trans hw57 mlrv" alt="">
+        </div>
+        <br>
+        <div class="block_center dblock w320">
+            <img id="route4" src="{% static 'railway/img/new_textures/9.png' %}" class="img_route trans hwn mlrn" alt="">
+            <img id="route5" src="{% static 'railway/img/new_textures/10.png' %}" class="img_route trans hwn mlrn" alt="">
+            <img id="route6" src="{% static 'railway/img/new_textures/11.png' %}" class="img_route trans hwn mlrn" alt="">
+            <img id="route7" src="{% static 'railway/img/new_textures/12.png' %}" class="img_route trans hwn mlrn" alt="">
+            <img id="route8" src="{% static 'railway/img/new_textures/13.png' %}" class="img_route trans hwn mlrn" alt="">
+            <img id="route9" src="{% static 'railway/img/new_textures/14.png' %}" class="img_route trans hwn mlrn" alt="">
+        </div>
+    </div>
+    <br>
+    <button id="send_move" class="btn_next_phase block_center dblock">Ожидание старта игры</button>
+    <br>
+    <div id="status" class="block_center w320"></div>
+
+<script type="text/javascript">
+    var GAME_ID = {{ game_id }};
+    var CSRF_TOKEN = '{{ csrf_token }}';
+    var username = '{{ user.username }}';
+    var URL_CHECK_GAME_STATUS = '{% url 'railway_check_game_status' game_id %}';
+    var URL_HOME = '{% url 'home' %}';
+    var URL_SEND_MOVE = '{% url 'railway_send_move' %}';
+    var URL_GET_TILES = '{% url 'railway_get_tiles' %}'
+    var URL_TEXTURES = '{% static 'railway/img/new_textures/' %}'
+    var URL_GET_PLAYING_FIELD = '{% url 'railway_get_game_field' %}'
+    var URL_GET_STATUS = '{% url 'railway_get_status' %}'
+    var URL_GET_WINNERS = '{% url 'railway_get_winners' %}'
+    var URL_GET_STAGE = '{% url 'railway_get_stage' %}'
+    var URL_START_GAME = '{% url 'railway_start_game' %}'
+
+</script>
+<script src="{% static 'railway/js/script.js' %}"></script>
+</body>
+</html>

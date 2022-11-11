@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Вход</title>
+</head>
+<body>
+<h1><a href="{% url 'home' %}">Главная</a></h1>
+
+<h1>Вход</h1>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+     <button type="submit" class="btn btn-primary btn-block">Войти</button>
+</form>
+
+</body>
+</html>
