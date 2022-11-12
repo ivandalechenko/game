@@ -9,7 +9,7 @@
 </head>
 <body>
     <div id="game_field" class="dnone">      
-        <img src="{% static 'railway/img/new_textures/scores.jpg' %}" class='scores block_center dblock' alt="">
+        <img src="{% static 'railway/img/textures/scores.jpg' %}" class='scores block_center dblock' alt="">
         <table class = 'block_center' style="font-size: 13px;">
             <tr>
                 <td class="scores_element" valign="middle" align="center">Ex: </td>
@@ -31,7 +31,7 @@
         {% for i in range %}
             <div class="m0">
             {% for j in range %}
-                <img src="{% static 'railway/img/new_textures/'%}meow.png" id="cell{{ j }}{{ i }}" class="transition route_element" alt="">
+                <img src="{% static 'railway/img/textures/'%}err.png" id="cell{{ j }}{{ i }}" class="transition route_element" alt="">
             {% endfor %}
             </div>
         {% endfor %}
@@ -47,12 +47,12 @@
         </div>
         <br>
         <div class="block_center dblock w320">
-            <img id="route4" src="{% static 'railway/img/new_textures/9.png' %}" class="img_route trans hwn mlrn" alt="">
-            <img id="route5" src="{% static 'railway/img/new_textures/10.png' %}" class="img_route trans hwn mlrn" alt="">
-            <img id="route6" src="{% static 'railway/img/new_textures/11.png' %}" class="img_route trans hwn mlrn" alt="">
-            <img id="route7" src="{% static 'railway/img/new_textures/12.png' %}" class="img_route trans hwn mlrn" alt="">
-            <img id="route8" src="{% static 'railway/img/new_textures/13.png' %}" class="img_route trans hwn mlrn" alt="">
-            <img id="route9" src="{% static 'railway/img/new_textures/14.png' %}" class="img_route trans hwn mlrn" alt="">
+            <img id="route4" src="{% static 'railway/img/textures/9.png' %}" class="img_route trans hwn mlrn" alt="">
+            <img id="route5" src="{% static 'railway/img/textures/10.png' %}" class="img_route trans hwn mlrn" alt="">
+            <img id="route6" src="{% static 'railway/img/textures/11.png' %}" class="img_route trans hwn mlrn" alt="">
+            <img id="route7" src="{% static 'railway/img/textures/12.png' %}" class="img_route trans hwn mlrn" alt="">
+            <img id="route8" src="{% static 'railway/img/textures/13.png' %}" class="img_route trans hwn mlrn" alt="">
+            <img id="route9" src="{% static 'railway/img/textures/14.png' %}" class="img_route trans hwn mlrn" alt="">
         </div>
     </div>
     <br>
@@ -68,7 +68,7 @@
     var URL_HOME = '{% url 'home' %}';
     var URL_SEND_MOVE = '{% url 'railway_send_move' %}';
     var URL_GET_TILES = '{% url 'railway_get_tiles' %}'
-    var URL_TEXTURES = '{% static 'railway/img/new_textures/' %}'
+    var URL_TEXTURES = '{% static 'railway/img/textures/' %}'
     var URL_GET_PLAYING_FIELD = '{% url 'railway_get_game_field' %}'
     var URL_GET_STATUS = '{% url 'railway_get_status' %}'
     var URL_GET_WINNERS = '{% url 'railway_get_winners' %}'

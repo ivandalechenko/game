@@ -361,12 +361,15 @@ function get_and_update_score() {
     var networksScore = get_networks_score();
     var minusScore = get_minus_score();
     var centerScore = get_center_score();
-    var score = networksScore - minusScore + centerScore + update_route_score(1) + update_route_score(-1);
+    var roadScore = update_route_score(1);
+    var railScore = update_route_score(-1);
+    var score = networksScore - minusScore + centerScore + roadScore + railScore;
     update_networks_score(networksScore);
     update_minus_score(minusScore);
     update_center_score(centerScore);
     document.getElementById('score').innerHTML = score;
-    return score;
+    var scoreArr = [networksScore,minusScore,centerScore,roadScore,railScore,score];
+    return scoreArr;
 }
 function get_empty_exits_list(includeBorders = 1, routeType = 0) {
     var epmtyExitsList = [];
@@ -495,7 +498,8 @@ function place_tile(x,y,selectedRoute,mirroredTurningStation = false){
     var potentialRotate = get_rotate_list(potentialMoves[index_of_xy(x,y,potentialMoves)].req,ROUTE_INFO[routeType]);
     routeRotate = potentialRotate.indexOf(true);
     tableElement = document.getElementById("cell"+x+''+y);
-    tableElement.classList.add('biroute'+routeType,'birouteroll'+routeRotate);    
+    tableElement.classList.add('biroute'+routeType,'birouteroll'+routeRotate);
+    tableElement.src = URL_TEXTURES+'err0.png';
     _playingField.push(new Cell(x,y,routeType,routeRotate));
     
 
@@ -537,6 +541,8 @@ function return_tile(x,y,selectedRoute) {
     for (var i = 0; i < ROUTE_INFO.length; i++) {
         element.classList.remove('biroute'+i,'birouteroll'+i);
     }
+    element.src = URL_TEXTURES+'err.png';
+
     tile_refresh(selectedRoute);
     if (selectedRoute>3){
         _specUseCount = 0;
@@ -694,7 +700,9 @@ function show_playing_field(){
     for (let i = 0; i < ROUTE_INFO.length; i++) {
         var biroute = document.getElementsByClassName('biroute'+i);
         while (biroute.length){
+            biroute[0].src = URL_TEXTURES+'err.png';
             biroute[0].classList.remove('biroute'+i);
+
         }
         var birouteroll = document.getElementsByClassName('birouteroll'+i);
         while (birouteroll.length){
@@ -771,10 +779,18 @@ function send_move() {
     }
     clear_class_can_place_in_all_cells();
 
+    var scoreArr = get_and_update_score();
+    // var scoreArr = [networksScore,minusScore,centerScore,roadScore,railScore,score];
+
     send_post_request(URL_SEND_MOVE, send_move_handler, 
         '&game_id='+GAME_ID+
         '&playing_field='+JSON.stringify(_playingField)+
-        '&score='+get_and_update_score()+
+        '&exit_score='+scoreArr[0]+
+        '&minus_score='+scoreArr[1]+
+        '&center_score='+scoreArr[2]+
+        '&road_score='+scoreArr[3]+
+        '&rail_score='+scoreArr[4]+
+        '&score='+scoreArr[5]+
         '&stage='+_numOfMove);
     
     

@@ -89,13 +89,18 @@ def send_move(request):
     game_user_field.playing_field = request.POST['playing_field']
     game_user_field.stage = stage
     game_user_field.score = request.POST['score']
+    game_user_field.center_score = request.POST['center_score']
+    game_user_field.exit_score = request.POST['exit_score']
+    game_user_field.minus_score = request.POST['minus_score']
+    game_user_field.rail_score = request.POST['rail_score']
+    game_user_field.road_score = request.POST['road_score']
     game_user_field.save()
     return HttpResponse(next_route(request.POST['game_id'], stage))
 
 
 def start_game(request):
     game_id = request.POST['game_id']
-    game = Game.objects.get(id=game_id)
+    game = Game.objects.get(id=int(game_id))
     game.stage = 1
     route_rolls = json.loads(game.route_rolls)
     route_rolls.append([])
