@@ -141,30 +141,18 @@ function mod(a,b){
     else {return a % b;}
 }
 function end_of_game(){
-    document.getElementById('send_move').classList.remove('dnone');
-    document.getElementById('send_move').classList.add('dblock');
-    document.getElementById('send_move').innerHTML = "Игра окончена!";
-    document.getElementById('send_move').onclick = null;
-    for (var i = 0; i < 10; i++) {
-        document.getElementById('route'+i).classList.add('img_route_used');
-        document.getElementById('route'+i).onclick = null;
-    }
+    document.getElementById('tales_block').classList.remove('dblock');
+    document.getElementById('tales_block').classList.add('dnone');
+    document.getElementById('send_move').classList.remove('dblock');
+    document.getElementById('send_move').classList.add('dnone');
     send_post_request(URL_GET_WINNERS, url_get_winners_handler, '&game_id='+GAME_ID);
     function url_get_winners_handler(param) {
         winnersList = JSON.parse(param);
-        // winnersList.sort(function (a, b) {
-        //     if (a.score < b.score) {
-        //         return 1;
-        //     }
-        //     if (a.score > b.score) {
-        //         return -1;
-        //     }
-        //     return 0;
-        // });
-        winnersStr = 'Победители: <br>';
+        winnersStr = '<table style="width: 100%;"><tr><td>*</td><td>Ex</td><td>Rds</td><td>Rls</td><td>Ctr</td><td>Mns</td><td>Scr</td></tr>';
         for (var i = 0; i < winnersList.length; i++) {
-            winnersStr = winnersStr + (i+1) + '. ' + winnersList[i].username + ' - ' + winnersList[i].score + '<br>';
+            winnersStr = winnersStr + '<tr><td>'+(i+1)+'. '+ winnersList[i].username +'</td><td>'+ winnersList[i].exit_score +'</td><td>'+ winnersList[i].road_score +'</td><td>'+ winnersList[i].rail_score +'</td><td>'+ winnersList[i].center_score +'</td><td>'+ winnersList[i].minus_score +'</td><td>' + winnersList[i].score + '</td></tr><br>';
         }
+        winnersStr = winnersStr + '</table>';
         document.getElementById('status').innerHTML = winnersStr;
     }
 }

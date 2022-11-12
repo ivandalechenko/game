@@ -160,7 +160,7 @@ def get_winners(request):
             game.save()
             setted_winner = True
         username = User.objects.get(id=get_game_field.user_id).username
-        winners.append({'username': username, 'score': get_game_field.score})
+        winners.append({'username': username, 'score': get_game_field.score, 'center_score': get_game_field.center_score, 'exit_score': get_game_field.exit_score, 'minus_score': get_game_field.minus_score, 'rail_score': get_game_field.rail_score, 'road_score': get_game_field.road_score})
     return HttpResponse(json.dumps(winners))
 
 
