@@ -150,9 +150,15 @@ def get_stage(request):
 
 
 def get_winners(request):
-    get_game_fields = GameUserField.objects.filter(game_id=request.POST['game_id'])
+    get_game_fields = GameUserField.objects.filter(game_id=request.POST['game_id']).order_by('-score','minus_score')
     winners = []
+    setted_winner = False;
     for get_game_field in get_game_fields:
+        if not setted_winner:
+            game = Game.objects.get(id=request.POST['game_id'])
+            game.winner = get_game_field.user_id
+            game.save()
+            setted_winner = True
         username = User.objects.get(id=get_game_field.user_id).username
         winners.append({'username': username, 'score': get_game_field.score})
     return HttpResponse(json.dumps(winners))

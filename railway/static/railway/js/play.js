@@ -152,15 +152,15 @@ function end_of_game(){
     send_post_request(URL_GET_WINNERS, url_get_winners_handler, '&game_id='+GAME_ID);
     function url_get_winners_handler(param) {
         winnersList = JSON.parse(param);
-        winnersList.sort(function (a, b) {
-            if (a.score < b.score) {
-                return 1;
-            }
-            if (a.score > b.score) {
-                return -1;
-            }
-            return 0;
-        });
+        // winnersList.sort(function (a, b) {
+        //     if (a.score < b.score) {
+        //         return 1;
+        //     }
+        //     if (a.score > b.score) {
+        //         return -1;
+        //     }
+        //     return 0;
+        // });
         winnersStr = 'Победители: <br>';
         for (var i = 0; i < winnersList.length; i++) {
             winnersStr = winnersStr + (i+1) + '. ' + winnersList[i].username + ' - ' + winnersList[i].score + '<br>';
