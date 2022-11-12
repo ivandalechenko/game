@@ -116,16 +116,16 @@
 .birouteroll1{transform: rotate(90deg);  -webkit-appearance: none; -webkit-tap-highlight-color: transparent;}
 .birouteroll2{transform: rotate(180deg); -webkit-appearance: none; -webkit-tap-highlight-color: transparent;}
 .birouteroll3{transform: rotate(270deg); -webkit-appearance: none; -webkit-tap-highlight-color: transparent;}
-.biroute0{background:no-repeat center/100% url("../img/new_textures/0.png");}
-.biroute1{background:no-repeat center/100% url("../img/new_textures/1.png");}
-.biroute2{background:no-repeat center/100% url("../img/new_textures/2.png");}
-.biroute3{background:no-repeat center/100% url("../img/new_textures/3.png");}
-.biroute4{background:no-repeat center/100% url("../img/new_textures/4.png");}
-.biroute5{background:no-repeat center/100% url("../img/new_textures/5.png");}
-.biroute6{background:no-repeat center/100% url("../img/new_textures/6.png");}
-.biroute7{background:no-repeat center/100% url("../img/new_textures/7.png");}
-.biroute8{background:no-repeat center/100% url("../img/new_textures/8.png");}
-.biroute9{background:no-repeat center/100% url("../img/new_textures/9.png");}
+.biroute0{background:no-repeat center/100%  url("../img/new_textures/0.png");}
+.biroute1{background:no-repeat center/100%  url("../img/new_textures/1.png");}
+.biroute2{background:no-repeat center/100%  url("../img/new_textures/2.png");}
+.biroute3{background:no-repeat center/100%  url("../img/new_textures/3.png");}
+.biroute4{background:no-repeat center/100%  url("../img/new_textures/4.png");}
+.biroute5{background:no-repeat center/100%  url("../img/new_textures/5.png");}
+.biroute6{background:no-repeat center/100%  url("../img/new_textures/6.png");}
+.biroute7{background:no-repeat center/100%  url("../img/new_textures/7.png");}
+.biroute8{background:no-repeat center/100%  url("../img/new_textures/8.png");}
+.biroute9{background:no-repeat center/100%  url("../img/new_textures/9.png");}
 .biroute10{background:no-repeat center/100% url("../img/new_textures/10.png");}
 .biroute11{background:no-repeat center/100% url("../img/new_textures/11.png");}
 .biroute12{background:no-repeat center/100% url("../img/new_textures/12.png");}
