@@ -13,7 +13,7 @@ urlpatterns = [
     path('get_winners', get_winners, name='railway_get_winners'),
     path('get_stage', get_stage, name='railway_get_stage'),
     path('start_game', start_game, name='railway_start_game'),
-
+    path('get_games', get_games, name='railway_get_games'),
 
     path('check_game_status/<int:game_id>/', check_game_status, name='railway_check_game_status'),
 ]

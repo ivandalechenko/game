@@ -1,8 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    {% load static %}
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>mamgo</title>
+    <!-- <link href="{% static 'railway/css/index.css' %}" type="text/css" rel="stylesheet"> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
     {% if request.user.is_authenticated %}
@@ -15,6 +18,19 @@
                 <button type="submit">Войти в игру</button>
             </form>
         </h1>
+        <br>
+        <div id="available_games_list">
+            
+        </div>
     {% endif %}
+
+
+<script type="text/javascript">
+    var CSRF_TOKEN = '{{ csrf_token }}';
+    var URL_JOIN_GAME = '{% url 'railway_join_game' %}';
+    var URL_GET_GAMES = '{% url 'railway_get_games' %}';
+
+</script>
+<script src="{% static 'railway/js/index.js' %}"></script>
 </body>
 </html>

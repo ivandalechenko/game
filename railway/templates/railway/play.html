@@ -4,9 +4,7 @@
     {% load static %}
     <meta charset="UTF-8">
     <title>mamgo</title>
-
-    <!-- <link href="https://marksheet.io/css/reset.css" type="text/css" rel="stylesheet"> -->
-    <link href="{% static 'railway/css/style.css' %}" type="text/css" rel="stylesheet">
+    <link href="{% static 'railway/css/play.css' %}" type="text/css" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
@@ -14,8 +12,6 @@
         <img src="{% static 'railway/img/new_textures/scores.jpg' %}" class='scores block_center dblock' alt="">
         <table class = 'block_center' style="font-size: 13px;">
             <tr>
-                <!-- <td class="scores_element" valign="middle" align="center">Ход: </td> -->
-                <!-- <td class="scores_element" valign="middle" align="center" id="move_num">0</td> -->
                 <td class="scores_element" valign="middle" align="center">Ex: </td>
                 <td class="scores_element" valign="middle" align="center" id="exit_points">0</td>
                 <td class="scores_element" valign="middle" align="center">Rds: </td>
@@ -80,6 +76,6 @@
     var URL_START_GAME = '{% url 'railway_start_game' %}'
 
 </script>
-<script src="{% static 'railway/js/script.js' %}"></script>
+<script src="{% static 'railway/js/play.js' %}"></script>
 </body>
 </html>

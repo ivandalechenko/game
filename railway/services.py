@@ -13,6 +13,16 @@ def index(request):
     return render(request, 'railway/index.html')
 
 
+def get_games(request):
+    games = Game.objects.filter(stage=0)
+    response = []
+    for game in games:
+        game_user_fields = GameUserField.objects.filter(game_id=game.id)
+        response.append({'id': game.id, 'players_count': len(game_user_fields)})
+
+    return HttpResponse(json.dumps(response))
+
+
 def create_empty_gaming_field():
     return [{"x": 1, "y": -1, "type": 15, "rotate": 0}, {"x": 3, "y": -1, "type": 16, "rotate": 0},
             {"x": 5, "y": -1, "type": 15, "rotate": 0}, {"x": 7, "y": 1, "type": 16, "rotate": 1},
