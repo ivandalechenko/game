@@ -493,23 +493,16 @@ function get_requirements_for_cell(x,y) {
     return requirements;
 }
 function show_send_move_btn() {
-    var countUsedRoutes = 0;
-    for (var i = 0; i < 4; i++) {
-        var element = document.getElementById('route'+i);
-        if (element.classList.contains('img_route_used')) {
-            countUsedRoutes = countUsedRoutes + 1;
-        }
-    }
-    var element = document.getElementById('send_move');
-    if (countUsedRoutes>3){
-        element.classList.remove('dnone');
-        element.classList.add('dblock');
-        element.innerHTML = 'Отправить ход';
-        document.getElementById('send_move').onclick = function(event) {send_move();};
-    }else{
-        element.classList.add('dnone');
-        element.classList.remove('dblock');
-    }
+    element = document.getElementById('send_move');
+    element.classList.remove('dnone');
+    element.classList.add('dblock');
+    element.innerHTML = 'Отправить ход';
+    element.onclick = function(event) {send_move();};
+}
+function hide_send_move_btn() {
+    element = document.getElementById('send_move');
+    element.classList.remove('dblock');
+    element.classList.add('dnone');
 }
 function place_tile(x,y,selectedRoute,mirroredTurningStation = false){
     var routeType = _currentRoutes[selectedRoute];
@@ -528,7 +521,7 @@ function place_tile(x,y,selectedRoute,mirroredTurningStation = false){
 
     change_class_for_placed_tile(x,y,selectedRoute);
     clear_class_can_place_in_all_cells();
-    show_send_move_btn();
+    check_can_place_tiles();
     get_and_update_scores();
     tableElement.onclick = function(event) {rotate_route(x,y);};
 }
@@ -573,7 +566,7 @@ function return_tile(x,y,selectedRoute) {
             tile_refresh(i);
         }
     }
-    show_send_move_btn();
+    check_can_place_tiles();
     get_and_update_scores();    
 }
 function rotate_route(x,y) {
@@ -610,6 +603,7 @@ function rotate_route(x,y) {
                                     cellElement.classList.add('birouteroll'+oldCellRotate);
                                     cellElement.classList.add('biroute'+oldCellType);
                                     get_and_update_scores();
+                                    check_can_place_tiles();
                                     return 0;
                                 }
                             }
@@ -619,6 +613,7 @@ function rotate_route(x,y) {
                 cellElement.classList.add('biroute'+_playingField[index_of_xy(x,y,_playingField)].type);
                 cellElement.classList.add('birouteroll'+_playingField[index_of_xy(x,y,_playingField)].rotate);
                 get_and_update_scores();
+                check_can_place_tiles();
                 return 0;
             }
         }
@@ -654,6 +649,7 @@ function rotate_route(x,y) {
         return start;
     }
     get_and_update_scores();
+    check_can_place_tiles();
 }
 function select_tile(tileNum){
     for (var i = 0; i < 10; i++) {
@@ -682,6 +678,39 @@ function show_potential_moves_for_tile(tileNum){
                 }
             }
         }
+    }
+}
+function check_can_place_tiles() {
+    var potentialMoves = get_potential_moves();
+    var usedTiles = 0;
+    for (let i = 0; i < 10; i++) {
+        routeElement = document.getElementById('route'+i);
+        if (!routeElement.classList.contains('img_route_used')){
+            var canPlace = false;
+            var j = 0;
+            while (j < potentialMoves.length && !canPlace){
+                if (check_can_move(potentialMoves[j].req,ROUTE_INFO[_currentRoutes[i]])){
+                    canPlace = true
+                }
+                j = j+1;
+            }
+            console.log(i);
+            if (!canPlace){
+                if (i<4){usedTiles = usedTiles+1;}
+                routeElement.classList.add('img_route_cant_be_used');
+                routeElement.onclick = null;
+            }else{
+                routeElement.classList.remove('img_route_cant_be_used');
+                routeElement.onclick = function(event) { console.log(i); select_tile(i); };;
+            }
+        }else{
+            if (i<4){usedTiles = usedTiles+1;}
+        }   
+    }
+    if (usedTiles == 4){
+        show_send_move_btn();
+    }else{
+        hide_send_move_btn();
     }
 }
 function clear_class_can_place_in_all_cells(){
@@ -867,6 +896,7 @@ function get_tiles(){
                 document.getElementById('route'+i).onclick = null;
             }
         }
+        check_can_place_tiles();
     }
 }
 function send_post_request(url, handler, params, token = CSRF_TOKEN) {
