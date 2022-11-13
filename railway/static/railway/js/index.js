@@ -7,7 +7,7 @@ function get_games() {
     function get_games_handler(param) {
         obj = JSON.parse(param);
         if (obj.length == 0){
-            availableGamesListStr = 'Доступных игр нет, создайте свою :)';
+            availableGamesListStr = 'Доступных игр нет, создайте свою :):';
         }else{
             availableGamesListStr = 'Доступные игры:';
         }

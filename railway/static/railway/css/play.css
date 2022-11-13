@@ -5,12 +5,17 @@
     /*margin-right: -1%;*/
     /*margin-bottom: -1%;*/
 }
-/*.route_element{
-    height: 46px;
-    width: 46px;
-    margin-right: -1.35%;
-    margin-bottom: -1.35%;
-}*/
+#cross_list{
+    position: relative;
+    width: 1px;
+    height: 1px;
+    z-index: 10;
+}
+.cross{
+    position: absolute;
+    z-index: 10;
+}
+
 .bck1{background: no-repeat center/100% url("../img/table_fone1.jpg");}
 .bck2{background: no-repeat center/100% url("../img/table_fone2.jpg");}
 .bck3{background: no-repeat center/100% url("../img/table_fone3.jpg");}

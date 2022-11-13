@@ -61,6 +61,9 @@ const NUMBER_OF_SIDES_OF_A_CELL = 4;
 const OVERPASS_NUMBER = 6;
 const TURNING_STATION_NUMBER = 8;
 const MIR_TURNING_STATION_NUMBER = 17;
+const ROUTE_WIDTH = 45.7;
+const PLAYING_FIELD_WIDTH = 320;
+
 
 const REQUEST_FREQUENCY = 2000;
 
@@ -387,6 +390,28 @@ function get_empty_exits_list(includeBorders = 1, routeType = 0) {
                 }            
             }
         }
+    }
+    // cross 
+    if (includeBorders == 0){
+        const CROSS_WIDHT = 17;
+        document.getElementById('cross_list').innerHTML = '';
+        var crossListStr = '';
+        for (let i = 0; i < epmtyExitsList.length; i++) {
+            crossListStr = crossListStr + '<img src="/static/railway/img/textures/err1.png" class="cross" style="width: '+CROSS_WIDHT+'px;';
+            var left = (ROUTE_WIDTH/2)-(CROSS_WIDHT/2) + epmtyExitsList[i].x*ROUTE_WIDTH;
+            if (epmtyExitsList[i].side == 1) {left = (left + ROUTE_WIDTH/2);}
+            if (epmtyExitsList[i].side == 3) {left = (left - ROUTE_WIDTH/2);}
+
+            var top = (ROUTE_WIDTH/2)-(CROSS_WIDHT/2) + epmtyExitsList[i].y*ROUTE_WIDTH;
+            if (epmtyExitsList[i].side == 2) {top = (top + ROUTE_WIDTH/2);}
+            if (epmtyExitsList[i].side == 0) {top = (top - ROUTE_WIDTH/2);}
+
+            crossListStr = crossListStr + 'left:' + left.toFixed(2) + 'px; ';
+            crossListStr = crossListStr + 'top:' + top.toFixed(2) + 'px;';
+            crossListStr = crossListStr +'" alt="">'; 
+            console.log(epmtyExitsList);
+        }
+        document.getElementById('cross_list').innerHTML = crossListStr;
     }
     return epmtyExitsList;
 }

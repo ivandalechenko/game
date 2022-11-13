@@ -28,6 +28,9 @@
         </table>
         <br>
         <div id="fone" class="cells_container block_center">
+        <div id='cross_list'>
+            <img src="/static/railway/img/textures/err1.png" class="cross" alt="">
+        </div>
         {% for i in range %}
             <div class="m0">
             {% for j in range %}
@@ -35,6 +38,7 @@
             {% endfor %}
             </div>
         {% endfor %}
+
         </div>
     </div>
     <br>
@@ -74,6 +78,7 @@
     var URL_GET_WINNERS = '{% url 'railway_get_winners' %}'
     var URL_GET_STAGE = '{% url 'railway_get_stage' %}'
     var URL_START_GAME = '{% url 'railway_start_game' %}'
+    var URL_CROSS = '{% static 'railway/img/textures/'%}err.png'
 
 </script>
 <script src="{% static 'railway/js/play.js' %}"></script>
