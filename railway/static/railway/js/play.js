@@ -512,7 +512,7 @@ function place_tile(x,y,selectedRoute,mirroredTurningStation = false){
     routeRotate = potentialRotate.indexOf(true);
     tableElement = document.getElementById("cell"+x+''+y);
     tableElement.classList.add('biroute'+routeType,'birouteroll'+routeRotate);
-    tableElement.src = URL_TEXTURES+'err0.png';
+    // tableElement.src = URL_TEXTURES+'err0.png';
     _playingField.push(new Cell(x,y,routeType,routeRotate));
     
 
@@ -726,6 +726,7 @@ function show_playing_field(){
     for (let i = 12; i < _playingField.length; i++) {
         document.getElementById("cell"+_playingField[i].x+_playingField[i].y).classList.add('biroute'+_playingField[i].type);
         document.getElementById("cell"+_playingField[i].x+_playingField[i].y).classList.add('birouteroll'+_playingField[i].rotate);
+        document.getElementById("cell"+_playingField[i].x+_playingField[i].y).classList.add('old_placed');
     }
 }
 function check_can_move(requirements, cell){
