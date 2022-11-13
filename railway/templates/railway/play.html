@@ -13,15 +13,15 @@
         <table class = 'block_center' style="font-size: 13px;">
             <tr>
                 <td class="scores_element" valign="middle" align="center">Ex: </td>
-                <td class="scores_element" valign="middle" align="center" id="exit_points">0</td>
-                <td class="scores_element" valign="middle" align="center">Rds: </td>
-                <td class="scores_element" valign="middle" align="center" id="route_points1">0</td>
-                <td class="scores_element" valign="middle" align="center">Rls: </td>
-                <td class="scores_element" valign="middle" align="center" id="route_points-1">0</td>
-                <td class="scores_element" valign="middle" align="center">Ctr: </td>
-                <td class="scores_element" valign="middle" align="center" id="center_points">0</td>
+                <td class="scores_element" valign="middle" align="center" id="exit_score">0</td>
                 <td class="scores_element" valign="middle" align="center">Mns: </td>
-                <td class="scores_element" valign="middle" align="center" id="minus_points">0</td>
+                <td class="scores_element" valign="middle" align="center" id="minus_score">0</td>
+                <td class="scores_element" valign="middle" align="center">Rls: </td>
+                <td class="scores_element" valign="middle" align="center" id="rail_score">0</td>
+                <td class="scores_element" valign="middle" align="center">Rds: </td>
+                <td class="scores_element" valign="middle" align="center" id="road_score">0</td>
+                <td class="scores_element" valign="middle" align="center">Ctr: </td>
+                <td class="scores_element" valign="middle" align="center" id="center_score">0</td>
                 <td class="scores_element" valign="middle" align="center">Scr: </td>
                 <td class="scores_element" valign="middle" align="center" id="score">0</td>
             </tr>
@@ -29,7 +29,6 @@
         <br>
     <div id="fone" class="cells_container block_center">
         <div id='cross_list'>
-            <img src="/static/railway/img/textures/err1.png" class="cross" alt="">
         </div>
         {% for i in range %}
             <div class="m0">
@@ -60,7 +59,7 @@
         </div>
     <br>
     </div>
-    <button id="send_move" class="btn_next_phase block_center dblock">Ожидание старта игры</button>
+    <button id="send_move" class="btn_next_phase block_center dblock">Загрузка...</button>
     <br>
     <div id="status" class="block_center w320"></div>
 
@@ -76,7 +75,7 @@
     var URL_GET_PLAYING_FIELD = '{% url 'railway_get_game_field' %}'
     var URL_GET_STATUS = '{% url 'railway_get_status' %}'
     var URL_GET_WINNERS = '{% url 'railway_get_winners' %}'
-    var URL_GET_STAGE = '{% url 'railway_get_stage' %}'
+    var URL_GET_STAGE_AND_SCORES = '{% url 'railway_get_stage_and_scores' %}'
     var URL_START_GAME = '{% url 'railway_start_game' %}'
     var URL_CROSS = '{% static 'railway/img/textures/'%}err.png'
 

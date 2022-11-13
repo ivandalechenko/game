@@ -10,7 +10,7 @@ var _playingField;
 var _currentRoutes = [];
 var _specUseCount = 0;
 var _numOfMove = 0;
-// var _funcWaitPlayers;
+var _scores;
 const ROUTE_INFO = [
     [0, 1, 0, 1],
     [0, -1, 0, -1],
@@ -63,7 +63,6 @@ const TURNING_STATION_NUMBER = 8;
 const MIR_TURNING_STATION_NUMBER = 17;
 const ROUTE_WIDTH = 45.7;
 const PLAYING_FIELD_WIDTH = 320;
-
 
 const REQUEST_FREQUENCY = 2000;
 
@@ -264,7 +263,7 @@ function get_center_score() {
     }
     return centerPoints;
 }
-function update_route_score(route_type=0) {
+function get_route_score(route_type=0) {
     var tmp_for_get_lr_arr = [];
     // Получает все выходы вникуда
     start_points = get_empty_exits_list(1,route_type);
@@ -339,27 +338,37 @@ function update_route_score(route_type=0) {
         var cr = get_lr_arr(start_points[i].x,start_points[i].y);
         if (cr > longest_route){longest_route = cr;}
     }
-    document.getElementById('route_points'+route_type).innerHTML = longest_route;
     return longest_route;
 }
-function update_center_score(score){ document.getElementById('center_points').innerHTML = score;
+function update_score(scoreType, score) {
+    console.log(scoreType +' '+ _scores[scoreType]);
+    if (parseInt(_scores[scoreType]) == parseInt(score)) {
+        document.getElementById(scoreType).innerHTML = score;
+    }else if (parseInt(_scores[scoreType]) < parseInt(score)) {
+        // console.log( parseInt(score)+' +'+parseInt(score)-parseInt(_scores[scoreType]));
+        // document.getElementById(scoreType).innerHTML = parseInt(score)+' +'+parseInt(score)-parseInt(_scores[scoreType]);
+        document.getElementById(scoreType).innerHTML = parseInt(_scores[scoreType])+'<span style="color: #c20a0a;font-size: 9px;"> +'+(parseInt(score)-parseInt(_scores[scoreType]))+'</span>';
+    }else{
+        document.getElementById(scoreType).innerHTML = parseInt(_scores[scoreType])+'<span style="color: #c20a0a;font-size: 9px;"> -'+(parseInt(_scores[scoreType])-parseInt(score))+'</span>';
+    }
 }
-function update_networks_score(score){ document.getElementById('exit_points').innerHTML = score;
-}
-function update_minus_score(score) { document.getElementById('minus_points').innerHTML = score;
-}
-function get_and_update_score() {
-    var networksScore = get_networks_score();
+function get_and_update_scores() {
+    var exitScore = get_networks_score();
     var minusScore = get_minus_score();
     var centerScore = get_center_score();
-    var roadScore = update_route_score(1);
-    var railScore = update_route_score(-1);
-    var score = networksScore - minusScore + centerScore + roadScore + railScore;
-    update_networks_score(networksScore);
-    update_minus_score(minusScore);
-    update_center_score(centerScore);
-    document.getElementById('score').innerHTML = score;
-    var scoreArr = [networksScore,minusScore,centerScore,roadScore,railScore,score];
+    var roadScore = get_route_score(1);
+    var railScore = get_route_score(-1);
+
+
+    var score = exitScore - minusScore + centerScore + roadScore + railScore;
+    update_score('score', score);
+    update_score('center_score', centerScore);
+    update_score('exit_score', exitScore);
+    update_score('minus_score', minusScore);
+    update_score('rail_score', railScore);
+    update_score('road_score', roadScore);
+
+    var scoreArr = [exitScore,minusScore,centerScore,roadScore,railScore,score];
     return scoreArr;
 }
 function get_empty_exits_list(includeBorders = 1, routeType = 0) {
@@ -409,7 +418,7 @@ function get_empty_exits_list(includeBorders = 1, routeType = 0) {
             crossListStr = crossListStr + 'left:' + left.toFixed(2) + 'px; ';
             crossListStr = crossListStr + 'top:' + top.toFixed(2) + 'px;';
             crossListStr = crossListStr +'" alt="">'; 
-            console.log(epmtyExitsList);
+            // console.log(epmtyExitsList);
         }
         document.getElementById('cross_list').innerHTML = crossListStr;
     }
@@ -519,7 +528,7 @@ function place_tile(x,y,selectedRoute,mirroredTurningStation = false){
     change_class_for_placed_tile(x,y,selectedRoute);
     clear_class_can_place_in_all_cells();
     show_send_move_btn();
-    get_and_update_score();
+    get_and_update_scores();
     tableElement.onclick = function(event) {rotate_route(x,y);};
 }
 function change_class_for_placed_tile(x,y,selectedRoute){
@@ -564,7 +573,7 @@ function return_tile(x,y,selectedRoute) {
         }
     }
     show_send_move_btn();
-    get_and_update_score();    
+    get_and_update_scores();    
 }
 function rotate_route(x,y) {
     select_tile(-1);
@@ -641,7 +650,7 @@ function rotate_route(x,y) {
         }
         return start;
     }
-    get_and_update_score();
+    get_and_update_scores();
 }
 function select_tile(tileNum){
     for (var i = 0; i < 10; i++) {
@@ -685,27 +694,28 @@ function update_game(){
         _playingField = JSON.parse(param);
         get_tiles();
         show_playing_field();
-        get_and_update_score();
         document.getElementById('send_move').onclick = function(event) {send_move();};
-        get_stage();
+        get_stage_and_scores();
     }
 }
-function get_stage() {
-    send_post_request(URL_GET_STAGE, get_stage_handler, '&game_id='+GAME_ID);
-    function get_stage_handler(param){
-        var obj = JSON.parse(param);
-        _numOfMove = obj.stage;
-        if (obj.reloadOnWaitingPlayers == 1){
+function get_stage_and_scores() {
+    send_post_request(URL_GET_STAGE_AND_SCORES, get_stage_and_scores_handler, '&game_id='+GAME_ID);
+    function get_stage_and_scores_handler(param){
+        _scores = JSON.parse(param);
+        get_and_update_scores();
+        _numOfMove = _scores.stage;
+        if (_scores.reloadOnWaitingPlayers == 1){
             _numOfMove = _numOfMove - 1;
             send_move();
         } 
+        // console.log(_scores);
         for (let i = 0; i < FINISH_STAGE+2; i++){
             document.getElementById('fone').classList.remove('bck'+i);
         }
         document.getElementById('fone').classList.add('bck'+_numOfMove);
         if (_numOfMove == FINISH_STAGE+1){
             end_of_game();
-        }        
+        }
     }
 }
 function show_playing_field(){
@@ -793,7 +803,7 @@ function send_move() {
     }
     clear_class_can_place_in_all_cells();
 
-    var scoreArr = get_and_update_score();
+    var scoreArr = get_and_update_scores();
     // var scoreArr = [networksScore,minusScore,centerScore,roadScore,railScore,score];
 
     send_post_request(URL_SEND_MOVE, send_move_handler, 

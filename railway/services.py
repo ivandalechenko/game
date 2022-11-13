@@ -138,12 +138,20 @@ def next_route(game_id, stage):
     return json.dumps(response)
 
 
-def get_stage(request):
+def get_stage_and_scores(request):
     game_id = request.POST['game_id']
     game_user_field = GameUserField.objects.get(game_id=game_id, user_id=request.user.pk)
     game = Game.objects.get(id=game_id)
-    response = {'stage': game_user_field.stage, 'reloadOnWaitingPlayers': 0}
-    if game_user_field.stage > game.stage:
+    response = {'stage': game_user_field.stage, 
+                'reloadOnWaitingPlayers': 0, 
+                'score': game_user_field.score, 
+                'center_score': game_user_field.center_score, 
+                'exit_score': game_user_field.exit_score, 
+                'minus_score': game_user_field.minus_score, 
+                'rail_score': game_user_field.rail_score, 
+                'road_score': game_user_field.road_score}
+
+    if response['stage'] > game.stage:
         response['reloadOnWaitingPlayers'] = 1
 
     return HttpResponse(json.dumps(response))
@@ -160,7 +168,13 @@ def get_winners(request):
             game.save()
             setted_winner = True
         username = User.objects.get(id=get_game_field.user_id).username
-        winners.append({'username': username, 'score': get_game_field.score, 'center_score': get_game_field.center_score, 'exit_score': get_game_field.exit_score, 'minus_score': get_game_field.minus_score, 'rail_score': get_game_field.rail_score, 'road_score': get_game_field.road_score})
+        winners.append({'username': username, 
+                        'score': get_game_field.score, 
+                        'center_score': get_game_field.center_score, 
+                        'exit_score': get_game_field.exit_score, 
+                        'minus_score': get_game_field.minus_score, 
+                        'rail_score': get_game_field.rail_score, 
+                        'road_score': get_game_field.road_score})
     return HttpResponse(json.dumps(winners))
 
 
