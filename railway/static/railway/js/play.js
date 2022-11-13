@@ -19,7 +19,7 @@ const ROUTE_INFO = [
     [0, 1, 1, 1],
     [0, -1, -1, -1],
     [1, -1, 1, -1], // overpass (6)
-    [-1, 0, 1, 0],
+    [-1, 0, 1, 0], // simple station (7)
     [-1, 0, 0, 1], // turning station (8)
     [1, 1, 1, 1],
     [1, -1, -1, -1],
@@ -57,8 +57,10 @@ const CENTER_COORDS = [
     [4,4]
 ];
 const FINISH_STAGE = 7;
+
 const NUMBER_OF_SIDES_OF_A_CELL = 4;
 const OVERPASS_NUMBER = 6;
+const SIMPLE_STATION_NUMBER = 7;
 const TURNING_STATION_NUMBER = 8;
 const MIR_TURNING_STATION_NUMBER = 17;
 const ROUTE_WIDTH = 45.7;
@@ -281,7 +283,9 @@ function get_route_score(route_type=0) {
     }
     // Добавляет станции с 2 соеденениями разных типов
     for (var i = 0; i < _playingField.length; i++){
-        if (_playingField[i].type == 7 || _playingField[i].type == TURNING_STATION_NUMBER || _playingField[i].type == MIR_TURNING_STATION_NUMBER){
+        if ( _playingField[i].type == SIMPLE_STATION_NUMBER ||
+             _playingField[i].type == TURNING_STATION_NUMBER ||
+             _playingField[i].type == MIR_TURNING_STATION_NUMBER){
             if (start_points[index_of_xy(_playingField[i].x,_playingField[i].y,start_points)] == undefined){
                 start_points.push(new EmptyExitsElement(_playingField[i].x,_playingField[i].y,0) );
             }
@@ -341,12 +345,9 @@ function get_route_score(route_type=0) {
     return longest_route;
 }
 function update_score(scoreType, score) {
-    console.log(scoreType +' '+ _scores[scoreType]);
     if (parseInt(_scores[scoreType]) == parseInt(score)) {
         document.getElementById(scoreType).innerHTML = score;
     }else if (parseInt(_scores[scoreType]) < parseInt(score)) {
-        // console.log( parseInt(score)+' +'+parseInt(score)-parseInt(_scores[scoreType]));
-        // document.getElementById(scoreType).innerHTML = parseInt(score)+' +'+parseInt(score)-parseInt(_scores[scoreType]);
         document.getElementById(scoreType).innerHTML = parseInt(_scores[scoreType])+'<span style="color: #c20a0a;font-size: 9px;"> +'+(parseInt(score)-parseInt(_scores[scoreType]))+'</span>';
     }else{
         document.getElementById(scoreType).innerHTML = parseInt(_scores[scoreType])+'<span style="color: #c20a0a;font-size: 9px;"> -'+(parseInt(_scores[scoreType])-parseInt(score))+'</span>';
@@ -608,6 +609,7 @@ function rotate_route(x,y) {
                                     _playingField[index_of_xy(x,y,_playingField)].rotate = oldCellRotate;
                                     cellElement.classList.add('birouteroll'+oldCellRotate);
                                     cellElement.classList.add('biroute'+oldCellType);
+                                    get_and_update_scores();
                                     return 0;
                                 }
                             }
@@ -616,6 +618,7 @@ function rotate_route(x,y) {
                 }
                 cellElement.classList.add('biroute'+_playingField[index_of_xy(x,y,_playingField)].type);
                 cellElement.classList.add('birouteroll'+_playingField[index_of_xy(x,y,_playingField)].rotate);
+                get_and_update_scores();
                 return 0;
             }
         }

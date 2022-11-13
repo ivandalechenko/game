@@ -16,7 +16,7 @@
     z-index: 10;
 }
 .old_placed{
-    filter: brightness(7);
+    filter: contrast(0);
 }
 
 .bck1{background: no-repeat center/100% url("../img/fones/table_fone1.jpg");}
