@@ -44,7 +44,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'reg_nav.apps.RegNavConfig',
-    'ttt.apps.TttConfig',
     'railway.apps.RailwayConfig',
 ]
 
@@ -127,7 +126,7 @@ USE_TZ = True
 STATIC_URL = 'static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'ttt/static')
+    os.path.join(BASE_DIR, 'railway/static')
 ]
 
 # Default primary key field type

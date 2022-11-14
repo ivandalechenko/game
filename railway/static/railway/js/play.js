@@ -149,6 +149,9 @@ function end_of_game(){
     document.getElementById('tales_block').classList.add('dnone');
     document.getElementById('send_move').classList.remove('dblock');
     document.getElementById('send_move').classList.add('dnone');
+    for (i = 12; i < _playingField.length; i++) {
+        document.getElementById('cell'+_playingField[i].x+''+_playingField[i].y).classList.remove('old_placed');
+    }
     send_post_request(URL_GET_WINNERS, url_get_winners_handler, '&game_id='+GAME_ID);
     function url_get_winners_handler(param) {
         winnersList = JSON.parse(param);

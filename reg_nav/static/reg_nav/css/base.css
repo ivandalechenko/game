@@ -1,0 +1,83 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;900&display=swap');
+.font_regular{font-weight: 400;}
+.font_medium{font-weight: 500;}
+.font_semibold{font-weight: 600;}
+.font_bold{font-weight: 700;}
+.font_black{font-weight: 900;}
+body{
+    margin: 0;
+    font-family: 'Montserrat';
+    background-color: #EFF8FD;
+}
+a{
+    text-decoration: none;
+    color: black;
+}
+.navbar_block{
+    position: fixed;
+    width: 100%;
+    top: 0px;
+}
+.navbar{
+    text-align: right;
+    padding: 20px 0px;
+    font-size: 18px;
+}
+h1{
+    margin: 0;
+}
+.min_height_100vh{min-height: 100vh;}
+
+.container{
+    width: 1170px;
+    margin: 0 auto;
+}  
+.SVG_simple{
+    height: 43px;
+    position: relative;
+    top: 5px;
+}
+.usp_main_text{
+    padding-top: 25vh;
+    font-size: 50px;
+}
+.usp_action_button{
+    border: 3px solid black;
+    padding: 10px 26px;
+    font-size: 27px;
+}
+.usp_action_button_block{padding-top: 12vh;}
+.decoration1{
+    position: absolute;
+    top: 382px;
+    left: 349px;
+    transform: rotate(-20deg);
+    transition: 2s;
+}
+.opacity0{opacity: 0;}
+.opacity1{opacity: 1;}
+
+
+@media (max-width: 1200px){
+    .container{max-width: 970px;}
+    .usp_main_text{font-size: 40px;}
+    .SVG_simple{ height: 38px;}
+    .usp_action_button_block{padding-top: 10vh;}
+    .usp_action_button{font-size: 25px;}
+}
+@media (max-width: 992px){
+    .container{max-width: 750px;}
+    .usp_main_text{font-size: 35px;}
+    .SVG_simple{ height: 33px;}
+    .usp_action_button_block{padding-top: 8vh;}
+    .usp_action_button{font-size: 23px;}
+
+}
+@media (max-width: 767px){
+    .container{max-width: 90%;}
+    .usp_main_text{font-size: 30px;}
+    .SVG_simple{ height: 29px;}
+    .usp_action_button_block{padding-top: 7vh;}
+    .usp_action_button{font-size: 20px;}
+
+}
