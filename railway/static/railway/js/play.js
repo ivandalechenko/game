@@ -11,6 +11,7 @@ var _currentRoutes = [];
 var _specUseCount = 0;
 var _numOfMove = 0;
 var _scores;
+var _usedSpecTile = false;
 const ROUTE_INFO = [
     [0, 1, 0, 1],
     [0, -1, 0, -1],
@@ -524,6 +525,9 @@ function place_tile(x,y,selectedRoute,mirroredTurningStation = false){
 
     change_class_for_placed_tile(x,y,selectedRoute);
     clear_class_can_place_in_all_cells();
+    if (selectedRoute>3){
+        _usedSpecTile = true;
+    }
     check_can_place_tiles();
     get_and_update_scores();
     tableElement.onclick = function(event) {rotate_route(x,y);};
@@ -704,7 +708,9 @@ function check_can_place_tiles() {
                 routeElement.onclick = null;
             }else{
                 routeElement.classList.remove('img_route_cant_be_used');
-                routeElement.onclick = function(event) { console.log(i); select_tile(i); };;
+                if (i>3 && !_usedSpecTile || i<4){
+                    routeElement.onclick = function(event) { select_tile(i); };;
+                }
             }
         }else{
             if (i<4){usedTiles = usedTiles+1;}
@@ -835,6 +841,8 @@ function send_move() {
     for (var i = 0; i < 4; i++) {
         document.getElementById('route'+i).classList.add('img_route_used');
         document.getElementById('route'+i).classList.remove('img_route_selected');
+        document.getElementById('route'+i).classList.remove('img_route_selected');
+        document.getElementById('route'+i).classList.remove('img_route_cant_be_used');        
     }
     clear_class_can_place_in_all_cells();
 
