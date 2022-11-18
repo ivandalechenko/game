@@ -1,0 +1,36 @@
+#enter_game_input{
+	background: transparent;
+    font-size: 16px;
+    border-radius: 0px;
+    outline: none;
+}
+#enter_game_input : active{
+    outline: none;
+}
+#enter_game_btn{
+}
+.width_btn{
+	width: 270px;
+}
+.usp_action_button {
+	background: transparent;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+.padding_top {
+    padding-top: 12vh;
+}
+.or{font-size: 22px;}
+.spis_stolov{font-size: 25px;}
+.tacenter{text-align: center;}
+.minp{margin-bottom: -2px}
+.winp{width: 78.5%}
+.w100{width: 100%;}
+.margin_auto{
+	margin-left: auto;
+	margin-right: auto;
+}

@@ -8,7 +8,7 @@ from django.contrib.auth.models import User
 from railway.models import *
 
 def index(request):
-    return render(request, 'reg_nav/base.html')
+    return render(request, 'base.html')
 
 
 def account(request):

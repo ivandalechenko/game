@@ -7,13 +7,13 @@ function get_games() {
     function get_games_handler(param) {
         obj = JSON.parse(param);
         if (obj.length == 0){
-            availableGamesListStr = '<br><br>Доступных столов нет, создайте свой :)';
+            availableGamesListStr = 'Доступных игр нет, создайте свою :)';
         }else{
-            availableGamesListStr = '';
+            availableGamesListStr = 'Доступные игры:';
         }
         for (var i = 0; i < obj.length; i++) {
-            availableGamesListStr = availableGamesListStr + '<br><br><a href="'+URL_JOIN_GAME+
-                '?game_id='+obj[i].id+'">Стол #'+obj[i].id+' <br> '+ obj[i].players_count +' игрок(а)(ов)</a>'
+            availableGamesListStr = availableGamesListStr + '<br><a href="'+URL_JOIN_GAME+
+                '?game_id='+obj[i].id+'">Игра #'+obj[i].id+' - '+ obj[i].players_count +' игрок(а)(ов)</a>'
         }
         document.getElementById('available_games_list').innerHTML = availableGamesListStr;
         setTimeout(get_games, REQUEST_FREQUENCY);

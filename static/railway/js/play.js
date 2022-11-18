@@ -353,9 +353,9 @@ function update_score(scoreType, score) {
     if (parseInt(_scores[scoreType]) == parseInt(score)) {
         document.getElementById(scoreType).innerHTML = score;
     }else if (parseInt(_scores[scoreType]) < parseInt(score)) {
-        document.getElementById(scoreType).innerHTML = parseInt(_scores[scoreType])+'<span style="color: #c20a0a;font-size: 10px;"> +'+(parseInt(score)-parseInt(_scores[scoreType]))+'</span>';
+        document.getElementById(scoreType).innerHTML = parseInt(_scores[scoreType])+'<span style="color: #c20a0a;font-size: 9px;"> +'+(parseInt(score)-parseInt(_scores[scoreType]))+'</span>';
     }else{
-        document.getElementById(scoreType).innerHTML = parseInt(_scores[scoreType])+'<span style="color: #c20a0a;font-size: 10px;"> -'+(parseInt(_scores[scoreType])-parseInt(score))+'</span>';
+        document.getElementById(scoreType).innerHTML = parseInt(_scores[scoreType])+'<span style="color: #c20a0a;font-size: 9px;"> -'+(parseInt(_scores[scoreType])-parseInt(score))+'</span>';
     }
 }
 function get_and_update_scores() {

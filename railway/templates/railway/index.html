@@ -1,35 +1,44 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    {% load static %}
-    <meta charset="UTF-8">
-    <title>mamgo</title>
+{% extends "base.html" %}
+
+{% block head %}
+    {% load static %} 
     <link href="{% static 'railway/css/index.css' %}" type="text/css" rel="stylesheet">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-</head>
-<body>
+{% endblock %} 
+
+{% block content %} 
     {% if request.user.is_authenticated %}
-        <h1><a href="{% url 'railway_create_game' %}">Создать стол</a></h1>
-        <h1>
-            <form action="{% url 'railway_join_game' %}" method="get">
-                <input type="number" name="game_id" placeholder="Номер игры">
-                <br>
-                <button type="submit">Войти в игру</button>
-            </form>
-        </h1>
-        <br>
-        <div id="available_games_list">
-            
+        <div class="container">
+            <div class="padding_top width_btn margin_auto">
+                <a href="{% url 'railway_create_game' %}">
+                    <button class="usp_action_button font_semibold w100">Создать стол</button>            
+                </a>
+            </div>
+            <br>
+            <div class="font_iregular width_btn margin_auto tacenter or">ИЛИ</div>
+            <br>
+            <div class="width_btn margin_auto">
+                <form action="{% url 'railway_join_game' %}" class="font_semibold" method="get">
+                    <input type="number" class="usp_action_button font_semibold winp minp" name="game_id" id="enter_game_input" placeholder="Код игры">
+                    <br>
+                    <button type="submit" class="usp_action_button font_semibold w100" id="enter_game_btn">Войти с кодом</button>
+                </form>
+            </div>
+            <br>
+            <div class="font_iregular width_btn margin_auto tacenter or">ИЛИ</div>
+            <br>
+            <div class="width_btn margin_auto font_isemibold tacenter spis_stolov">
+                Список доступных столов:
+                <div id="available_games_list" class="font_regular">
+                    
+                </div>
+            </div>
         </div>
     {% endif %}
-
-
+ 
 <script type="text/javascript">
     var CSRF_TOKEN = '{{ csrf_token }}';
     var URL_JOIN_GAME = '{% url 'railway_join_game' %}';
     var URL_GET_GAMES = '{% url 'railway_get_games' %}';
-
 </script>
 <script src="{% static 'railway/js/index.js' %}"></script>
-</body>
-</html>
+{% endblock content %}

@@ -1,35 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap');
-.font_iregular{font-family: 'Montserrat'; font-weight: 400; font-style: italic;}
-.font_isemibold{font-family: 'Montserrat'; font-weight: 600; font-style: italic;}
-.font_regular{font-family: 'Montserrat'; font-weight: 400; font-style: normal;}
-.font_semibold{font-family: 'Montserrat'; font-weight: 600; font-style: normal;}
-.font_bold{font-family: 'Montserrat'; font-weight: 700; font-style: normal;}
 body{
     margin: 0;
-    font-family: 'Montserrat';
-    background-color: #EFF8FD;
 }
-.gradient {
-    background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
-    background-size: 400% 400%;
-    animation: gradient 15s ease infinite;
-}
-
-@keyframes gradient {
-    0% {
-        background-position: 0% 50%;
-    }
-    50% {
-        background-position: 100% 50%;
-    }
-    100% {
-        background-position: 0% 50%;
-    }
-}
-
-
-
-
 .m0{height: 45.7px; width: 320px;font-size: 0px;}
 .route_element{
     height: 45.7px;
@@ -62,13 +33,6 @@ body{
 .cells_container{
     height: 320px;
     width: 320px;
-}
-#fone{
-    box-shadow: 0px 0px 20px -2px grey;
-}
-.score_table{
-    font-size: 13px;
-    box-shadow: 0px 0px 10px -2px grey;
 }
 
 

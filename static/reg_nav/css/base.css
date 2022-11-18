@@ -1,9 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap');
-.font_iregular{font-family: 'Montserrat'; font-weight: 400; font-style: italic;}
-.font_isemibold{font-family: 'Montserrat'; font-weight: 600; font-style: italic;}
-.font_regular{font-family: 'Montserrat'; font-weight: 400; font-style: normal;}
-.font_semibold{font-family: 'Montserrat'; font-weight: 600; font-style: normal;}
-.font_bold{font-family: 'Montserrat'; font-weight: 700; font-style: normal;}
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;900&display=swap');
+.font_regular{font-weight: 400;}
+.font_medium{font-weight: 500;}
+.font_semibold{font-weight: 600;}
+.font_bold{font-weight: 700;}
+.font_black{font-weight: 900;}
 body{
     margin: 0;
     font-family: 'Montserrat';
@@ -45,7 +45,6 @@ h1{
     border: 3px solid black;
     padding: 10px 26px;
     font-size: 27px;
-    color: black;
 }
 .usp_action_button_block{padding-top: 12vh;}
 .decoration1{
