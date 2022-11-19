@@ -11,7 +11,7 @@ var _currentRoutes = [];
 var _specUseCount = 0;
 var _numOfMove = 0;
 var _scores;
-var _usedSpecTile = false;
+var _usedSpecTile = 0;
 const ROUTE_INFO = [
     [0, 1, 0, 1],
     [0, -1, 0, -1],
@@ -64,13 +64,27 @@ const OVERPASS_NUMBER = 6;
 const SIMPLE_STATION_NUMBER = 7;
 const TURNING_STATION_NUMBER = 8;
 const MIR_TURNING_STATION_NUMBER = 17;
-const ROUTE_WIDTH = 45.7;
 const PLAYING_FIELD_WIDTH = 320;
 const REQUEST_FREQUENCY = 2000;
+var ROUTE_WIDTH = 45.7;
+var CROSS_WIDHT = 17;
 
 
 get_status();
+update_route_width_and_game_field_height();
 
+window.addEventListener(`resize`, event => {
+    update_route_width_and_game_field_height();
+}, false);
+function update_route_width_and_game_field_height() {
+    element = document.getElementById('cell00');
+    ROUTE_WIDTH = parseFloat(window.getComputedStyle(element).height);
+    CROSS_WIDHT = parseInt(ROUTE_WIDTH/2.7);
+
+    element = document.getElementById('game_field');
+    element.style.height = window.getComputedStyle(element).width;
+    // console.log(ROUTE_WIDTH);
+}
 
 
 
@@ -95,7 +109,10 @@ function get_status() {
             document.getElementById('tales_block').classList.remove('dblock');
             document.getElementById('send_move').classList.add('dnone');
             document.getElementById('tales_block').classList.remove('dnone');
+            // document.getElementById('game_field').classList.remove('dnone');
             document.getElementById('game_field').classList.remove('dnone');
+            document.getElementById('scores').classList.remove('dnone');
+
             update_game();
         }
     }
@@ -355,9 +372,9 @@ function update_score(scoreType, score) {
     if (parseInt(_scores[scoreType]) == parseInt(score)) {
         document.getElementById(scoreType).innerHTML = score;
     }else if (parseInt(_scores[scoreType]) < parseInt(score)) {
-        document.getElementById(scoreType).innerHTML = parseInt(_scores[scoreType])+'<span style="color: #c20a0a;font-size: 10px;"> +'+(parseInt(score)-parseInt(_scores[scoreType]))+'</span>';
+        document.getElementById(scoreType).innerHTML = parseInt(_scores[scoreType])+'<span class="scores_element_plus"> +'+(parseInt(score)-parseInt(_scores[scoreType]))+'</span>';
     }else{
-        document.getElementById(scoreType).innerHTML = parseInt(_scores[scoreType])+'<span style="color: #c20a0a;font-size: 10px;"> -'+(parseInt(_scores[scoreType])-parseInt(score))+'</span>';
+        document.getElementById(scoreType).innerHTML = parseInt(_scores[scoreType])+'<span class="scores_element_plus"> -'+(parseInt(_scores[scoreType])-parseInt(score))+'</span>';
     }
 }
 function get_and_update_scores() {
@@ -410,7 +427,7 @@ function get_empty_exits_list(includeBorders = 1, routeType = 0) {
     }
     // cross 
     if (includeBorders == 0){
-        const CROSS_WIDHT = 17;
+        
         document.getElementById('cross_list').innerHTML = '';
         var crossListStr = '';
         for (let i = 0; i < epmtyExitsList.length; i++) {
@@ -522,14 +539,12 @@ function place_tile(x,y,selectedRoute,mirroredTurningStation = false){
     routeRotate = potentialRotate.indexOf(true);
     tableElement = document.getElementById("cell"+x+''+y);
     tableElement.classList.add('biroute'+routeType,'birouteroll'+routeRotate);
-    // tableElement.src = URL_TEXTURES+'err0.png';
     _playingField.push(new Cell(x,y,routeType,routeRotate));
     
-
-    change_class_for_placed_tile(x,y,selectedRoute);
     clear_class_can_place_in_all_cells();
+    change_class_for_placed_tile(x,y,selectedRoute);
     if (selectedRoute>3){
-        _usedSpecTile = true;
+        _usedSpecTile = selectedRoute;
     }
     check_can_place_tiles();
     get_and_update_scores();
@@ -543,8 +558,9 @@ function change_class_for_placed_tile(x,y,selectedRoute){
         }
     }
     var element = document.getElementById('route'+selectedRoute);
-    element.classList.add('img_route_used');
+    element.classList.remove('img_route_cant_be_used');
     element.classList.remove('img_route_selected');
+    element.classList.add('img_route_used');
     element.onclick = function(event) { return_tile(x,y,selectedRoute); };
 }
 function return_tile(x,y,selectedRoute) {
@@ -564,14 +580,15 @@ function return_tile(x,y,selectedRoute) {
             }
         }
     }
-    for (var i = 0; i < ROUTE_INFO.length; i++) {
-        element.classList.remove('biroute'+i,'birouteroll'+i);
-    }
+
+    element.classList.add('tile_delete_class');
+    setTimeout(delete_all_tiles_class_from_cell, 500, element);
     element.src = URL_TEXTURES+'err.png';
 
     tile_refresh(selectedRoute);
     if (selectedRoute>3){
         _specUseCount = 0;
+        _usedSpecTile = false;
         for (var i = 4; i < 10; i++) {
             tile_refresh(i);
         }
@@ -579,6 +596,14 @@ function return_tile(x,y,selectedRoute) {
     check_can_place_tiles();
     get_and_update_scores();    
 }
+function delete_all_tiles_class_from_cell(element){
+    for (var i = 0; i < ROUTE_INFO.length; i++) {
+        element.classList.remove('biroute'+i,'birouteroll'+i);
+    }
+    element.classList.remove('tile_delete_class');
+
+}
+
 function rotate_route(x,y) {
     select_tile(-1);
     var requirementsForCell = get_requirements_for_cell(x,y);
@@ -662,9 +687,15 @@ function rotate_route(x,y) {
     check_can_place_tiles();
 }
 function select_tile(tileNum){
+    if (tileNum != -1){
+        if (document.getElementById('route'+tileNum.toString()).classList.contains('img_route_selected')){
+            return select_tile(-1);
+        }
+    }
     for (var i = 0; i < 10; i++) {
         document.getElementById('route'+i).classList.remove('img_route_selected');
     }
+
     if (tileNum == -1){
         clear_class_can_place_in_all_cells();
     }else{
@@ -714,6 +745,15 @@ function check_can_place_tiles() {
                 if (i>3 && !_usedSpecTile || i<4){
                     routeElement.onclick = function(event) { select_tile(i); };;
                 }
+                if (_usedSpecTile || _specUseCount >2){
+                    for (var j = 4; j < 10; j++) {
+                        if (j != _usedSpecTile){
+                            var element = document.getElementById('route'+j);
+                            element.classList.add('img_route_cant_be_used');
+                            element.onclick = null;
+                        }
+                    }
+                }
             }
         }else{
             if (i<4){usedTiles = usedTiles+1;}
@@ -754,9 +794,9 @@ function get_stage_and_scores() {
         } 
         // console.log(_scores);
         for (let i = 0; i < FINISH_STAGE+2; i++){
-            document.getElementById('fone').classList.remove('bck'+i);
+            document.getElementById('game_field').classList.remove('bck'+i);
         }
-        document.getElementById('fone').classList.add('bck'+_numOfMove);
+        document.getElementById('game_field').classList.add('bck'+_numOfMove);
         if (_numOfMove == FINISH_STAGE+1){
             end_of_game();
         }
@@ -821,6 +861,8 @@ function get_rotate_list(requirements, cell){
 function tile_refresh(id){
     element = document.getElementById('route'+id);
     element.classList.remove('img_route_used');
+    element.classList.remove('img_route_cant_be_used');
+
     element.onclick = function(event) { select_tile(id); };
     if (id>3){
         var index = index_of_type(_currentRoutes[id],_playingField);
@@ -848,6 +890,8 @@ function send_move() {
         document.getElementById('route'+i).classList.remove('img_route_cant_be_used');        
     }
     clear_class_can_place_in_all_cells();
+    _usedSpecTile = 0;
+
 
     var scoreArr = get_and_update_scores();
     // var scoreArr = [networksScore,minusScore,centerScore,roadScore,railScore,score];
