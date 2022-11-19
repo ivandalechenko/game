@@ -82,6 +82,7 @@ function get_status() {
             setTimeout(get_status, REQUEST_FREQUENCY);
             _numOfMove = 0;
             document.getElementById('send_move').innerHTML = "Запустить игру";
+            document.getElementById('send_move').classList.add('mt60px');
             document.getElementById('send_move').onclick = function(event) {start_game();};
             waitingStr = 'Ожидание запуска игры. Код: '+GAME_ID+'<br><br>Игроки: <br>';
             for (var i = 0; i < obj.expected_users_list.length; i++) {
@@ -89,6 +90,7 @@ function get_status() {
             }
             document.getElementById('status').innerHTML = waitingStr;
         }else{
+            document.getElementById('send_move').classList.remove('mt60px');
             document.getElementById('status').innerHTML = '';
             document.getElementById('tales_block').classList.remove('dblock');
             document.getElementById('send_move').classList.add('dnone');
