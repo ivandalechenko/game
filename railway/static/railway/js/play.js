@@ -574,6 +574,8 @@ function return_tile(x,y,selectedRoute) {
         if (xD>-1 && xD<7 && yD>-1 && yD<7){
             if (_playingField[index_of_xy(xD,yD,_playingField)] != undefined){
                 if (!check_have_exit(get_all_network_elements_by_coords(xD,yD,true))){
+                    document.getElementById('cell'+xD+''+yD).classList.add('tile_cant_return');
+                    setTimeout(delete_class_tile_cant_return, 500, xD, yD);
                     _playingField.push(del[0]);
                     return 0;
                 }
@@ -581,7 +583,7 @@ function return_tile(x,y,selectedRoute) {
         }
     }
 
-    element.classList.add('tile_delete_class');
+    element.classList.add('tile_deleting_class');
     setTimeout(delete_all_tiles_class_from_cell, 500, element);
     element.src = URL_TEXTURES+'err.png';
 
@@ -596,14 +598,15 @@ function return_tile(x,y,selectedRoute) {
     check_can_place_tiles();
     get_and_update_scores();    
 }
+function delete_class_tile_cant_return(x,y){
+    document.getElementById('cell'+x+''+y).classList.remove('tile_cant_return');
+}
 function delete_all_tiles_class_from_cell(element){
     for (var i = 0; i < ROUTE_INFO.length; i++) {
         element.classList.remove('biroute'+i,'birouteroll'+i);
     }
-    element.classList.remove('tile_delete_class');
-
+    element.classList.remove('tile_deleting_class');
 }
-
 function rotate_route(x,y) {
     select_tile(-1);
     var requirementsForCell = get_requirements_for_cell(x,y);

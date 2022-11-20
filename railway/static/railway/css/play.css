@@ -24,13 +24,21 @@
     0% { opacity: 0; }
     100% { opacity: 1; }
 }
-.tile_delete_class{
-    opacity: 0; animation: tile_delete_class_anim 0.5s ease-in-out 0s; cursor: pointer;
+.tile_deleting_class{
+    opacity: 0; 
+    animation: tile_deleting_class_anim 0.5s ease-in-out 0s;
 }
-@keyframes tile_delete_class_anim{
+@keyframes tile_deleting_class_anim{
     0% { opacity: 1; }
     50% { opacity: 0.5; box-shadow: 0px 0px 3px 3px black;}
     100% { opacity: 0;}
+}
+.tile_cant_return{
+    animation: tile_cant_return_anim 0.5s ease-in-out 0s;
+}
+@keyframes tile_cant_return_anim{
+    0% { box-shadow: inset 0px 0px 60px 0px #ad0101;}
+    100% { box-shadow: none; opacity: 0;}
 }
 .bck1{background: no-repeat center/100% url("../img/fones/table_fone_1.jpg");}
 .bck2{background: no-repeat center/100% url("../img/fones/table_fone_2.jpg");}
@@ -172,10 +180,41 @@ body{
     transform: rotate3d(0, 1, 1, 8deg) scale(1.15);
     animation: none;
 }
+.spec_tiles_block{ padding-left: 53px; }
 
-@media (max-width: 1080px){
-}
-@media (max-width: 992px){
+@media (max-width: 1062px){
+    #game_field{
+        width: 406px;
+    }
+    .m0{height: 58px; width: 406px;}
+    .route_element{
+        height: 58px;
+        width: 58px;
+    }
+    .tile_hwm {height: 60px;width: 60px;margin: 0px 8px;}
+    .spec_tile_hwm{height: 60px;width: 60px;margin: 8px 8px}
+    .spec_tiles_block{ padding-left: 40px; }
+    .scores_element {
+        width: 50px;
+        height: 25px;
+        font-size: 18px;
+    }
+    #send_move {
+        margin-left: 72px;
+        font-size: 18px;
+    }
+    @keyframes img_route_anim_stand{
+        0% {background: rgba(255, 255, 255, 0.7); box-shadow: 5px 5px 0px 0px black, 3px 3px 21px 3px lightslategrey; transform: rotate3d(0, 1, 1, 8deg) scale(1.15);}
+        100% {background: rgba(255, 255, 255, 0.7); transform: rotate3d(0, 1, 2, 1.5deg) scale(1.02); box-shadow: 4px 4px 0px 1.5px black, 0px 0px 0px 1px lightgrey;}
+    }
+    @keyframes img_route_anim {
+        0% {background: rgba(255, 255, 255, 0.7); transform: rotate3d(0, 1, 2, 1.5deg) scale(1.02); box-shadow: 4px 4px 0px 1.5px black, 0px 0px 0px 1px lightgrey;}
+        100% {background: rgba(255, 255, 255, 0.4); transform: rotate3d(0, 1, 2, -1.5deg) scale(1); box-shadow: -4px -4px 0px 1px black, 0px 0px 0px 1px lightgrey;}
+    }
 }
 @media (max-width: 767px){
+    .block_right{margin-left: auto; margin-right: auto;}
+    .block_left{margin-right: auto; margin-right: auto;}
+    .display_flex{display: block;}
+    .display_flex_50{flex: none; padding: 0;}
 }
