@@ -14,7 +14,7 @@ def index(request):
 
 
 def get_games(request):
-    games = Game.objects.filter(stage=0)
+    games = Game.objects.filter(stage=0, is_private=0)
     response = []
     for game in games:
         game_user_fields = GameUserField.objects.filter(game_id=game.id)
@@ -55,10 +55,24 @@ def get_game_field(request):
     return HttpResponse(field.playing_field)
 
 
+def creating_game(request):
+    return render(request, 'railway/creating_game.html')
+
+
+
 def create_game(request):
+    timer = int(request.POST['timer'])
+    players_count = int(request.POST['players_count'])
+    if 'is_private' in request.POST:
+        is_private = True
+    else:
+        is_private = False
     game = Game.objects.create(
         route_rolls=json.dumps([]),
-        stage=0
+        stage=0,
+        timer=timer,
+        players_count=players_count,
+        is_private=is_private,
     )
     # next_route(game.id, 1)
     create_game_user_field(request.user.pk, game.pk)
@@ -79,6 +93,11 @@ def join_game(request):
         'game_id': game_id,
         'range': range(7)
     }
+    game_user_fields = GameUserField.objects.filter(game_id=game_id)
+    game = Game.objects.get(id=game_id)
+    if len(game_user_fields) == game.players_count:
+        start_game(request, game_id)
+
     return render(request, 'railway/play.html', context)
 
 
@@ -98,17 +117,22 @@ def send_move(request):
     return HttpResponse(next_route(request.POST['game_id'], stage))
 
 
-def start_game(request):
-    game_id = request.POST['game_id']
+def start_game(request, game_id = -1):
+    if game_id == -1:
+        game_id = request.POST['game_id']
+
     game = Game.objects.get(id=int(game_id))
-    game.stage = 1
-    route_rolls = json.loads(game.route_rolls)
-    route_rolls.append([])
-    route_rolls[-1].append(random.randint(0, 5))
-    route_rolls[-1].append(random.randint(0, 5))
-    route_rolls[-1].append(random.randint(0, 5))
-    route_rolls[-1].append(random.randint(6, 8))
-    game.route_rolls = json.dumps(route_rolls)
+    game.players_count = len(GameUserField.objects.filter(game_id=game_id)) 
+    if game.stage != 1:
+        game.stage = 1
+        route_rolls = json.loads(game.route_rolls)
+        route_rolls.append([])
+        route_rolls[-1].append(random.randint(0, 5))
+        route_rolls[-1].append(random.randint(0, 5))
+        route_rolls[-1].append(random.randint(0, 5))
+        route_rolls[-1].append(random.randint(6, 8))
+        game.route_rolls = json.dumps(route_rolls)
+    
     game.save()
     return 0
 
@@ -138,7 +162,7 @@ def next_route(game_id, stage):
     return json.dumps(response)
 
 
-def get_stage_and_scores(request):
+def get_stage_scores_timer(request):
     game_id = request.POST['game_id']
     game_user_field = GameUserField.objects.get(game_id=game_id, user_id=request.user.pk)
     game = Game.objects.get(id=game_id)
@@ -149,7 +173,9 @@ def get_stage_and_scores(request):
                 'exit_score': game_user_field.exit_score, 
                 'minus_score': game_user_field.minus_score, 
                 'rail_score': game_user_field.rail_score, 
-                'road_score': game_user_field.road_score}
+                'road_score': game_user_field.road_score,
+                'timer': game.timer,
+                }
 
     if response['stage'] > game.stage:
         response['reloadOnWaitingPlayers'] = 1

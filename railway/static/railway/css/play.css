@@ -3,23 +3,23 @@
 .birouteroll2{transform: rotate(180deg); -webkit-appearance: none; -webkit-tap-highlight-color: transparent;}
 .birouteroll3{transform: rotate(270deg); -webkit-appearance: none; -webkit-tap-highlight-color: transparent;}
     
-.biroute0{background:no-repeat center/100%  url("../img/textures/0.png");  opacity: 1; animation: birouteanim 0.6s ease-in-out 0s; cursor: pointer;}
-.biroute1{background:no-repeat center/100%  url("../img/textures/1.png");  opacity: 1; animation: birouteanim 0.6s ease-in-out 0s; cursor: pointer;}
-.biroute2{background:no-repeat center/100%  url("../img/textures/2.png");  opacity: 1; animation: birouteanim 0.6s ease-in-out 0s; cursor: pointer;}
-.biroute3{background:no-repeat center/100%  url("../img/textures/3.png");  opacity: 1; animation: birouteanim 0.6s ease-in-out 0s; cursor: pointer;}
-.biroute4{background:no-repeat center/100%  url("../img/textures/4.png");  opacity: 1; animation: birouteanim 0.6s ease-in-out 0s; cursor: pointer;}
-.biroute5{background:no-repeat center/100%  url("../img/textures/5.png");  opacity: 1; animation: birouteanim 0.6s ease-in-out 0s; cursor: pointer;}
-.biroute6{background:no-repeat center/100%  url("../img/textures/6.png");  opacity: 1; animation: birouteanim 0.6s ease-in-out 0s; cursor: pointer;}
-.biroute7{background:no-repeat center/100%  url("../img/textures/7.png");  opacity: 1; animation: birouteanim 0.6s ease-in-out 0s; cursor: pointer;}
-.biroute8{background:no-repeat center/100%  url("../img/textures/8.png");  opacity: 1; animation: birouteanim 0.6s ease-in-out 0s; cursor: pointer;}
-.biroute9{background:no-repeat center/100%  url("../img/textures/9.png");  opacity: 1; animation: birouteanim 0.6s ease-in-out 0s; cursor: pointer;}
-.biroute10{background:no-repeat center/100% url("../img/textures/10.png"); opacity: 1; animation: birouteanim 0.6s ease-in-out 0s; cursor: pointer;}
-.biroute11{background:no-repeat center/100% url("../img/textures/11.png"); opacity: 1; animation: birouteanim 0.6s ease-in-out 0s; cursor: pointer;}
-.biroute12{background:no-repeat center/100% url("../img/textures/12.png"); opacity: 1; animation: birouteanim 0.6s ease-in-out 0s; cursor: pointer;}
-.biroute13{background:no-repeat center/100% url("../img/textures/13.png"); opacity: 1; animation: birouteanim 0.6s ease-in-out 0s; cursor: pointer;}
-.biroute14{background:no-repeat center/100% url("../img/textures/14.png"); opacity: 1; animation: birouteanim 0.6s ease-in-out 0s; cursor: pointer;}
-.biroute15{background:no-repeat center/100% url("../img/textures/15.png"); opacity: 1; animation: birouteanim 0.6s ease-in-out 0s; cursor: pointer;}
-.biroute17{background:no-repeat center/100% url("../img/textures/17.png"); opacity: 1; animation: birouteanim 0.6s ease-in-out 0s; cursor: pointer;}
+.biroute0{background:no-repeat center/100%  url("../img/textures/0.png");  opacity: 1; animation: birouteanim 0.3s ease-in-out 0s; cursor: pointer;}
+.biroute1{background:no-repeat center/100%  url("../img/textures/1.png");  opacity: 1; animation: birouteanim 0.3s ease-in-out 0s; cursor: pointer;}
+.biroute2{background:no-repeat center/100%  url("../img/textures/2.png");  opacity: 1; animation: birouteanim 0.3s ease-in-out 0s; cursor: pointer;}
+.biroute3{background:no-repeat center/100%  url("../img/textures/3.png");  opacity: 1; animation: birouteanim 0.3s ease-in-out 0s; cursor: pointer;}
+.biroute4{background:no-repeat center/100%  url("../img/textures/4.png");  opacity: 1; animation: birouteanim 0.3s ease-in-out 0s; cursor: pointer;}
+.biroute5{background:no-repeat center/100%  url("../img/textures/5.png");  opacity: 1; animation: birouteanim 0.3s ease-in-out 0s; cursor: pointer;}
+.biroute6{background:no-repeat center/100%  url("../img/textures/6.png");  opacity: 1; animation: birouteanim 0.3s ease-in-out 0s; cursor: pointer;}
+.biroute7{background:no-repeat center/100%  url("../img/textures/7.png");  opacity: 1; animation: birouteanim 0.3s ease-in-out 0s; cursor: pointer;}
+.biroute8{background:no-repeat center/100%  url("../img/textures/8.png");  opacity: 1; animation: birouteanim 0.3s ease-in-out 0s; cursor: pointer;}
+.biroute9{background:no-repeat center/100%  url("../img/textures/9.png");  opacity: 1; animation: birouteanim 0.3s ease-in-out 0s; cursor: pointer;}
+.biroute10{background:no-repeat center/100% url("../img/textures/10.png"); opacity: 1; animation: birouteanim 0.3s ease-in-out 0s; cursor: pointer;}
+.biroute11{background:no-repeat center/100% url("../img/textures/11.png"); opacity: 1; animation: birouteanim 0.3s ease-in-out 0s; cursor: pointer;}
+.biroute12{background:no-repeat center/100% url("../img/textures/12.png"); opacity: 1; animation: birouteanim 0.3s ease-in-out 0s; cursor: pointer;}
+.biroute13{background:no-repeat center/100% url("../img/textures/13.png"); opacity: 1; animation: birouteanim 0.3s ease-in-out 0s; cursor: pointer;}
+.biroute14{background:no-repeat center/100% url("../img/textures/14.png"); opacity: 1; animation: birouteanim 0.3s ease-in-out 0s; cursor: pointer;}
+.biroute15{background:no-repeat center/100% url("../img/textures/15.png"); opacity: 1; animation: birouteanim 0.3s ease-in-out 0s; cursor: pointer;}
+.biroute17{background:no-repeat center/100% url("../img/textures/17.png"); opacity: 1; animation: birouteanim 0.3s ease-in-out 0s; cursor: pointer;}
 @keyframes birouteanim{
     0% { opacity: 0; }
     100% { opacity: 1; }
@@ -34,7 +34,7 @@
     100% { opacity: 0;}
 }
 .tile_cant_return{
-    animation: tile_cant_return_anim 0.5s ease-in-out 0s;
+    animation: tile_cant_return_anim 0.3s ease-in-out 0s;
 }
 @keyframes tile_cant_return_anim{
     0% { box-shadow: inset 0px 0px 60px 0px #ad0101;}
@@ -65,11 +65,11 @@ body{
 .display_flex{display: flex;}
 .display_flex_50{flex: 0 1 50%;  padding: 0px 20px;}
 .mt60px{margin-top: 60px;}
-.m0{height: 78.5px; width: 549.5px;font-size: 0px;}
-.route_element{
+.m0{font-size: 0px;}
+/*.route_element{
     height: 78.5px;
     width: 78.5px;
-}
+}*/
 #game_field{
     box-shadow: 0px 0px 21px -10px grey;
     width: 549.5px;
@@ -86,15 +86,24 @@ body{
     width: 1px;
     height: 1px;
     z-index: 10;
+    pointer-events: none;
+}
+.warning{
+    animation: warning_anim 0.3s ease-in-out 0s infinite alternate;
+}
+@keyframes warning_anim{
+    0% {color: rgba(255, 100, 100, 0.5);}
+    100% {color: rgba(255, 100, 100, 1);}
 }
 .cross{
     position: absolute;
     z-index: 10;
-    animation: place_cross 0.5s ease-in 0s;
+    pointer-events: none;
+    animation: place_cross 0.3s ease-in 0s;
 }
 @keyframes place_cross {
-  0% {transform: scale(1.5);}
-  100% {transform: scale(1);}
+  0% {opacity: 0;}
+  100% {opacity: 1;}
 }
 .old_placed{
     filter: contrast(0);
@@ -109,12 +118,16 @@ body{
 
 .railway_table_element_can_place{background:rgba(255, 255, 255, .8); transition: 0.1s;}
 .railway_table_element_can_place:hover{background:rgba(0, 0, 0, .1); transition: 0.1s; cursor:pointer;}
-.transition{transition: 0.5s ease-in-out;}
+.transition{transition: 0.3s ease-in-out;}
 
 .btn_next_phase{
     padding: 10px 30px;
     border: none;
     transition: 0.5s;
+}
+.status_font{
+    font-size: 20px;
+    font-weight: 600; 
 }
 
 .dblock{display:block;}
@@ -142,7 +155,7 @@ body{
 
 
 .tile_hwm{height: 85px;width: 85px;margin: 0px 10px}
-.spec_tile_hwm{height: 85px;width: 85px;margin: 10px 10px}
+.spec_tile_hwm{height: 85px;width: 85px;margin: 0px 10px}
 .mlrv{margin: 0 4px;}
 .mlrn{margin: 0px 3px;}
 
@@ -186,21 +199,16 @@ body{
     #game_field{
         width: 406px;
     }
-    .m0{height: 58px; width: 406px;}
-    .route_element{
-        height: 58px;
-        width: 58px;
-    }
     .tile_hwm {height: 60px;width: 60px;margin: 0px 8px;}
-    .spec_tile_hwm{height: 60px;width: 60px;margin: 8px 8px}
+    .spec_tile_hwm{height: 60px;width: 60px;margin: 0px 8px}
     .spec_tiles_block{ padding-left: 40px; }
     .scores_element {
-        width: 50px;
+        width: 70px;
         height: 25px;
         font-size: 18px;
     }
     #send_move {
-        margin-left: 72px;
+        margin-left: 55px;
         font-size: 18px;
     }
     @keyframes img_route_anim_stand{
@@ -211,10 +219,40 @@ body{
         0% {background: rgba(255, 255, 255, 0.7); transform: rotate3d(0, 1, 2, 1.5deg) scale(1.02); box-shadow: 4px 4px 0px 1.5px black, 0px 0px 0px 1px lightgrey;}
         100% {background: rgba(255, 255, 255, 0.4); transform: rotate3d(0, 1, 2, -1.5deg) scale(1); box-shadow: -4px -4px 0px 1px black, 0px 0px 0px 1px lightgrey;}
     }
+
 }
+.invisible_from_767{display: block;}
 @media (max-width: 767px){
     .block_right{margin-left: auto; margin-right: auto;}
-    .block_left{margin-right: auto; margin-right: auto;}
-    .display_flex{display: block;}
+    .block_left{margin-right: auto; margin-left: auto;}
+    .display_flex{display: block; width: 100%}
     .display_flex_50{flex: none; padding: 0;}
+    #game_field{
+        width: 100%;
+    }
+    .scores_element {
+        width: 70px;
+        height: 20px;
+    }
+    .tiles_inner{
+        margin-left: auto;
+        margin-right: auto;
+        width: 320px;
+    }
+    .spec_tiles_block {
+        padding-left: 0px;
+    }
+    .spec_tile_hwm {
+        height: 40px;
+        width: 40px;
+        margin: 0px 4px;
+    }
+    .invisible_from_767{display: none;}
+    #game {
+        padding-top: 60px;
+    }
+    #send_move {
+        margin-left: auto;
+        margin-right: auto;
+    }
 }

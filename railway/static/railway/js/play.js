@@ -64,30 +64,65 @@ const OVERPASS_NUMBER = 6;
 const SIMPLE_STATION_NUMBER = 7;
 const TURNING_STATION_NUMBER = 8;
 const MIR_TURNING_STATION_NUMBER = 17;
-const PLAYING_FIELD_WIDTH = 320;
-const REQUEST_FREQUENCY = 2000;
+const REQUEST_FREQUENCY = 1000;
 var ROUTE_WIDTH = 45.7;
 var CROSS_WIDHT = 17;
 
 
 get_status();
-update_route_width_and_game_field_height();
 
 window.addEventListener(`resize`, event => {
     update_route_width_and_game_field_height();
 }, false);
+
+
+timer_exp(10);
+function timer_exp(t,firstCall = true, tSource = 0) {
+    if (firstCall){
+        tSource = t;
+    }
+    if (t<10){
+        document.getElementById('timer').innerHTML = '0:0'+t;
+    }else{
+        document.getElementById('timer').innerHTML = '0:'+t;
+    }
+    if (parseInt((tSource-t)*(100/tSource))<10){
+        document.getElementById('timer').style.opacity = '0.0'+parseInt((tSource-t)*(100/tSource));
+    }else if (parseInt((tSource-t)*(100/tSource))<100){
+        document.getElementById('timer').style.opacity = '0.'+parseInt((tSource-t)*(100/tSource));
+    }else{
+        document.getElementById('timer').style.opacity = parseInt((tSource-t)*(100/tSource));
+    }
+    if (t != 0){
+        setTimeout(timer_exp, 1000, t-1, false, tSource);
+    }else{
+        document.getElementById('game_field').classList.remove('bck1');
+        document.getElementById('game_field').classList.add('bck8');
+    }
+    if (t < 6){
+        document.getElementById('timer').classList.add('warning');
+    }
+}
 function update_route_width_and_game_field_height() {
-    element = document.getElementById('cell00');
-    ROUTE_WIDTH = parseFloat(window.getComputedStyle(element).height);
+    var element = document.getElementById('game_field');
+    element.style.height = window.getComputedStyle(element).width;
+    ROUTE_WIDTH = (parseFloat(window.getComputedStyle(element).width)/7).toFixed(2);
     CROSS_WIDHT = parseInt(ROUTE_WIDTH/2.7);
 
-    element = document.getElementById('game_field');
-    element.style.height = window.getComputedStyle(element).width;
-    // console.log(ROUTE_WIDTH);
+    var elements = document.getElementsByClassName('m0');
+    for (let i = 0; i < elements.length; i++) {
+        elements[i].style.width = ROUTE_WIDTH*7+'px';
+        elements[i].style.height = ROUTE_WIDTH+'px';
+    }
+
+    elements = document.getElementsByClassName('route_element');
+    for (let i = 0; i < elements.length; i++) {
+        elements[i].style.width = ROUTE_WIDTH+'px';
+        elements[i].style.height = ROUTE_WIDTH+'px';
+    }
+
+    get_empty_exits_list(includeBorders = 0);
 }
-
-
-
 function get_status() {
     send_post_request(URL_GET_STATUS, status_handler, '&game_id='+GAME_ID);
     function status_handler(param) {
@@ -106,13 +141,11 @@ function get_status() {
         }else{
             document.getElementById('send_move').classList.remove('mt60px');
             document.getElementById('status').innerHTML = '';
-            document.getElementById('tales_block').classList.remove('dblock');
+            document.getElementById('tiles_block').classList.remove('dblock');
             document.getElementById('send_move').classList.add('dnone');
-            document.getElementById('tales_block').classList.remove('dnone');
-            // document.getElementById('game_field').classList.remove('dnone');
+            document.getElementById('tiles_block').classList.remove('dnone');
             document.getElementById('game_field').classList.remove('dnone');
             document.getElementById('scores').classList.remove('dnone');
-
             update_game();
         }
     }
@@ -120,9 +153,9 @@ function get_status() {
 function start_game() {
     send_post_request(URL_START_GAME, '', '&game_id='+GAME_ID);
     document.getElementById('status').innerHTML = ''; 
-    document.getElementById('tales_block').classList.remove('dblock');
+    document.getElementById('tiles_block').classList.remove('dblock');
     document.getElementById('send_move').classList.add('dnone');
-    document.getElementById('tales_block').classList.remove('dnone');
+    document.getElementById('tiles_block').classList.remove('dnone');
     document.getElementById('game_field').classList.remove('dnone');
     update_game();
 }
@@ -166,8 +199,8 @@ function mod(a,b){
     else {return a % b;}
 }
 function end_of_game(){
-    document.getElementById('tales_block').classList.remove('dblock');
-    document.getElementById('tales_block').classList.add('dnone');
+    document.getElementById('tiles_block').classList.remove('dblock');
+    document.getElementById('tiles_block').classList.add('dnone');
     document.getElementById('send_move').classList.remove('dblock');
     document.getElementById('send_move').classList.add('dnone');
     for (i = 12; i < _playingField.length; i++) {
@@ -781,13 +814,14 @@ function update_game(){
         _playingField = JSON.parse(param);
         get_tiles();
         show_playing_field();
+        update_route_width_and_game_field_height();
         document.getElementById('send_move').onclick = function(event) {send_move();};
-        get_stage_and_scores();
+        get_stage_scores_timer();
     }
 }
-function get_stage_and_scores() {
-    send_post_request(URL_GET_STAGE_AND_SCORES, get_stage_and_scores_handler, '&game_id='+GAME_ID);
-    function get_stage_and_scores_handler(param){
+function get_stage_scores_timer() {
+    send_post_request(URL_GET_STAGE_SCORES_TIMER, get_stage_scores_timer_handler, '&game_id='+GAME_ID);
+    function get_stage_scores_timer_handler(param){
         _scores = JSON.parse(param);
         get_and_update_scores();
         _numOfMove = _scores.stage;
@@ -795,7 +829,6 @@ function get_stage_and_scores() {
             _numOfMove = _numOfMove - 1;
             send_move();
         } 
-        // console.log(_scores);
         for (let i = 0; i < FINISH_STAGE+2; i++){
             document.getElementById('game_field').classList.remove('bck'+i);
         }
@@ -876,28 +909,32 @@ function tile_refresh(id){
         }
     }
 }
-function send_move() {
+function send_move(repeat = false, scoreArr = []) {
     // Removes the ability to turn and return from all cells
-    for (var i = 0; i < 7; i++) {
-        for (var j = 0; j < 7; j++) {
-            document.getElementById('cell'+i.toString()+j.toString()).onclick = null;
+    if (!repeat){
+        for (var i = 0; i < 7; i++) {
+            for (var j = 0; j < 7; j++) {
+                document.getElementById('cell'+i.toString()+j.toString()).onclick = null;
+            }
         }
+        for (var i = 0; i < 10; i++) {
+            document.getElementById('route'+i).onclick = null;    
+            document.getElementById('route'+i).classList.remove('img_route_selected');
+            document.getElementById('route'+i).classList.add('img_route_used');
+        }
+        for (var i = 0; i < 4; i++) {
+            document.getElementById('route'+i).classList.add('img_route_used');
+            document.getElementById('route'+i).classList.remove('img_route_cant_be_used');        
+        }
+        clear_class_can_place_in_all_cells();
+        _usedSpecTile = 0;
+
+        document.getElementById('send_move').classList.remove('dblock');
+        document.getElementById('send_move').classList.add('dnone');
+        scoreArr = get_and_update_scores();
     }
-    for (var i = 0; i < 10; i++) {
-        document.getElementById('route'+i).onclick = null;    
-    }
-    for (var i = 0; i < 4; i++) {
-        document.getElementById('route'+i).classList.add('img_route_used');
-        document.getElementById('route'+i).classList.remove('img_route_selected');
-        document.getElementById('route'+i).classList.remove('img_route_selected');
-        document.getElementById('route'+i).classList.remove('img_route_cant_be_used');        
-    }
-    clear_class_can_place_in_all_cells();
-    _usedSpecTile = 0;
 
 
-    var scoreArr = get_and_update_scores();
-    // var scoreArr = [networksScore,minusScore,centerScore,roadScore,railScore,score];
 
     send_post_request(URL_SEND_MOVE, send_move_handler, 
         '&game_id='+GAME_ID+
@@ -913,21 +950,17 @@ function send_move() {
     
     function send_move_handler(param){
         var obj = JSON.parse(param)
-        // console.log(obj);
         if (obj.status == 0){
-            document.getElementById('send_move').classList.remove('dnone');
-            document.getElementById('send_move').classList.add('dblock');
-            document.getElementById('send_move').onclick = null;
-            document.getElementById('send_move').innerHTML = "Ожидание других игроков";
-            waitingStr = 'Ожидаем хода: <br>';
+            waitingStr = 'Ожидаем: ';
             for (var i = 0; i < obj.expected_users_list.length; i++) {
-                waitingStr = waitingStr + (i+1) + '. ' + obj.expected_users_list[i].username + ': ' + obj.expected_users_list[i].score + '<br>';
+                waitingStr = waitingStr + obj.expected_users_list[i].username;
+                if (i != obj.expected_users_list.length-1){
+                    waitingStr = waitingStr + ', ';
+                }
             }
             document.getElementById('status').innerHTML = waitingStr;
-            setTimeout(send_move, REQUEST_FREQUENCY);
+            setTimeout(send_move, REQUEST_FREQUENCY, true, scoreArr);
         }else{
-            document.getElementById('send_move').classList.remove('dblock');
-            document.getElementById('send_move').classList.add('dnone');
             update_game();
             document.getElementById('status').innerHTML = '';
         }

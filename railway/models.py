@@ -2,9 +2,12 @@ from django.db import models
 
 
 class Game(models.Model):
-    last_phase_start = models.DateTimeField(auto_now_add=True)
+    last_phase_start = models.DateTimeField(auto_now=True)
     stage = models.IntegerField(default=0)
     winner = models.IntegerField(default=0)
+    timer = models.IntegerField(default=0)
+    players_count = models.IntegerField(default=0)
+    is_private = models.BooleanField(default=0)
     route_rolls = models.JSONField()
 
 

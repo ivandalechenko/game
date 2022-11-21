@@ -11,9 +11,13 @@ urlpatterns = [
     path('get_game_field', get_game_field, name='railway_get_game_field'),
     path('get_status', get_status, name='railway_get_status'),
     path('get_winners', get_winners, name='railway_get_winners'),
-    path('get_stage_and_scores', get_stage_and_scores, name='railway_get_stage_and_scores'),
+    path('get_stage_scores_timer', get_stage_scores_timer, name='railway_get_stage_scores_timer'),
     path('start_game', start_game, name='railway_start_game'),
     path('get_games', get_games, name='railway_get_games'),
+    path('creating_game', creating_game, name='railway_creating_game'),
+
+
+
 
     path('check_game_status/<int:game_id>/', check_game_status, name='railway_check_game_status'),
 ]

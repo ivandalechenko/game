@@ -69,27 +69,43 @@
             </tr>
         </table>
         <br>
-        <div id="tales_block" class="dnone block_left"> 
-            <div class="dblock">
+        <div id="tiles_block" class="dnone block_left"> 
+            <div class="dblock tiles_inner">
                 <img id="route0" class="img_route trans tile_hwm" alt="">
                 <img id="route1" class="img_route trans tile_hwm" alt="">
                 <img id="route2" class="img_route trans tile_hwm" alt="">
                 <img id="route3" class="img_route trans tile_hwm" alt="">
             </div>
             <br>
-            <div class="block_left dblock spec_tiles_block" style="padding-left: 53px;">
+            <div class="block_left dblock spec_tiles_block tiles_inner" style="">
                 <img id="route4" src="{% static 'railway/img/textures/9.png' %}" class="img_route trans spec_tile_hwm" alt="">
                 <img id="route5" src="{% static 'railway/img/textures/10.png' %}" class="img_route trans spec_tile_hwm" alt="">
-                <img id="route6" src="{% static 'railway/img/textures/11.png' %}" class="img_route trans spec_tile_hwm" alt=""><br>
+                <img id="route6" src="{% static 'railway/img/textures/11.png' %}" class="img_route trans spec_tile_hwm" alt=""><div class="invisible_from_767"><br></div>
                 <img id="route7" src="{% static 'railway/img/textures/12.png' %}" class="img_route trans spec_tile_hwm" alt="">
                 <img id="route8" src="{% static 'railway/img/textures/13.png' %}" class="img_route trans spec_tile_hwm" alt="">
                 <img id="route9" src="{% static 'railway/img/textures/14.png' %}" class="img_route trans spec_tile_hwm" alt="">
             </div>
             <br>
         </div>
+        <div id="timer" style="
+            font-size: 170px;
+            font-weight: 600;
+            color: rgba(100,100,150,1);
+            cursor: default;
+            pointer-events: none;
+            font-style: italic;
+            text-shadow: 3px 3px 0px rgba(0,0,0,0.2);
+            opacity: 0.0;
+            transition: 1s;
+            position: absolute;
+            top: 459px;
+            left: 636px;
+            width: 20px;
+            margin: 0;
+        ">0:30</div>
         <button id="send_move" class="btn_next_phase font_bold img_route block_left dblock">Загрузка...</button>
         <br>
-        <div id="status" class="block_left w320"></div>
+        <div id="status" class="block_left w320 status_font"></div>
     </div>
     
 </div>
@@ -105,7 +121,7 @@
     var URL_GET_PLAYING_FIELD = '{% url 'railway_get_game_field' %}'
     var URL_GET_STATUS = '{% url 'railway_get_status' %}'
     var URL_GET_WINNERS = '{% url 'railway_get_winners' %}'
-    var URL_GET_STAGE_AND_SCORES = '{% url 'railway_get_stage_and_scores' %}'
+    var URL_GET_STAGE_SCORES_TIMER = '{% url 'railway_get_stage_scores_timer' %}'
     var URL_START_GAME = '{% url 'railway_start_game' %}'
     var URL_CROSS = '{% static 'railway/img/textures/'%}err.png'
 
