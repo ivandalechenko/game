@@ -22,7 +22,7 @@ def get_games(request):
     response = []
     for game in games:
         game_user_fields = GameUserField.objects.filter(game_id=game.id)
-        response.append({'id': game.id, 'players_count': len(game_user_fields)})
+        response.append({'id': game.id, 'players_count': len(game_user_fields), 'max_players_count': game.players_count, 'timer': game.timer, })
 
     return HttpResponse(json.dumps(response))
 
@@ -107,8 +107,8 @@ def join_game(request):
 
 def send_move(request):
     game_id = request.POST['game_id']
-    stage = int(request.POST['stage']) + 1
     game_user_field = GameUserField.objects.get(game_id=game_id, user_id=request.user.pk)
+    stage = int(request.POST['stage']) + 1
     game_user_field.playing_field = request.POST['playing_field']
     game_user_field.stage = stage
     game_user_field.score = request.POST['score']

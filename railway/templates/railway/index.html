@@ -10,7 +10,7 @@
         <div class="container">
             <div class="padding_top width_btn margin_auto">
                 <a href="{% url 'railway_creating_game' %}">
-                    <button class="usp_action_button font_semibold w100">Создать стол</button>            
+                    <button class="usp_action_button font_semibold btn_default w100">Создать стол</button>            
                 </a>
             </div>
             <br>
@@ -18,9 +18,10 @@
             <br>
             <div class="width_btn margin_auto">
                 <form action="{% url 'railway_join_game' %}" class="font_semibold" method="get">
-                    <input type="number" class="usp_action_button font_semibold winp minp" name="game_id" id="enter_game_input" placeholder="Код игры">
+                    <input type="number" class="usp_action_button font_semibold winp minp form_default" name="game_id" id="enter_game_input" placeholder="Код игры">
                     <br>
-                    <button type="submit" class="usp_action_button font_semibold w100" id="enter_game_btn">Войти с кодом</button>
+
+                    <button type="submit" class="usp_action_button font_semibold btn_default w100" id="enter_game_btn">Войти с кодом</button>
                 </form>
             </div>
             <br>

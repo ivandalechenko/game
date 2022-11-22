@@ -1,8 +1,6 @@
 #enter_game_input{
 	background: transparent;
     font-size: 16px;
-    border-radius: 0px;
-    outline: none;
 }
 #enter_game_input : active{
     outline: none;
@@ -27,8 +25,8 @@ input::-webkit-inner-spin-button {
 .or{font-size: 22px;}
 .spis_stolov{font-size: 25px;}
 .tacenter{text-align: center;}
-.minp{margin-bottom: -2px}
-.winp{width: 78.5%}
+.minp{margin-bottom: 20px}
+.winp{width: 76%}
 .w100{width: 100%;}
 .margin_auto{
 	margin-left: auto;

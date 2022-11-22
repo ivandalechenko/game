@@ -1,18 +1,71 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap');
-.font_iregular{font-family: 'Montserrat'; font-weight: 400; font-style: italic;}
-.font_isemibold{font-family: 'Montserrat'; font-weight: 600; font-style: italic;}
-.font_regular{font-family: 'Montserrat'; font-weight: 400; font-style: normal;}
-.font_semibold{font-family: 'Montserrat'; font-weight: 600; font-style: normal;}
-.font_bold{font-family: 'Montserrat'; font-weight: 700; font-style: normal;}
+.font_regular{font-weight: 400;}
+.font_iregular{font-weight: 400; font-style: italic;}
+.font_semibold{font-weight: 600;}
+.font_isemibold{font-weight: 600; font-style: italic;}
+.font_bold{font-weight: 700;}
 body{
+    min-height: 100vh;
+}
+
+body {
     margin: 0;
     font-family: 'Montserrat';
-    background-color: #EFF8FD;
+/*    background-color: #EFF8FD;*/
+    
+    background: linear-gradient(-45deg, #FFF5F5, #FFFFF5, #F8FFF5, #F5FFFE, #F6F5FF, #FFF5FD);
+    background-size: 600% 600%;
+    animation: gradient 30s ease infinite alternate;
+}
+
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    100% {
+        background-position: 100% 50%;
+    }
 }
 a{
     text-decoration: none;
     color: black;
+    font-family: 'Montserrat';
 }
+button{
+    font-family: 'Montserrat';
+}
+.btn_default{
+    border-radius: 5px;
+    border: none;    
+    background: rgba(255, 255, 255, 0.7); 
+    transform: rotate3d(0, 1, 2, 1.5deg) scale(1.02); 
+    box-shadow: 4px 4px 0px 1.5px black, 0px 0px 0px 1px lightgrey;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;;
+    -webkit-tap-highlight-color: transparent;
+    padding: 10px 22px;
+    font-size: 20px;
+    animation: btn_default 4s ease-in-out 0.5s infinite alternate;
+}
+@keyframes btn_default {
+    0% {background: rgba(255, 255, 255, 0.7); transform: rotate3d(0, 1, 2, 1.5deg) scale(1.02); box-shadow: 4px 4px 0px 1.5px black, inset 0px 0px 0px 1px lightgrey;}
+    100% {background: rgba(255, 255, 255, 0.4); transform: rotate3d(0, 1, 2, -1.5deg) scale(1); box-shadow: -4px -4px 0px 1px black, inset 0px 0px 0px 1px lightgrey;}
+}
+
+.form_default{
+    border-radius: 6px;
+    border: 2px dashed lightgray;
+    outline: none;
+    transition: 0.5s;
+}
+.form_default:focus{
+    box-shadow: 0px 0px 15px 2px lightgrey;
+}
+.form_default::placeholder{
+    font-style: italic;
+    color: rgba(0, 0, 0, .3);
+}
+
 .navbar_block{
     position: fixed;
     width: 100%;
@@ -42,10 +95,8 @@ h1{
     font-size: 50px;
 }
 .usp_action_button{
-    border: 3px solid black;
-    padding: 10px 26px;
-    font-size: 27px;
-    color: black;
+    font-size: 25px;
+    padding: 15px 31px;
 }
 .usp_action_button_block{padding-top: 12vh;}
 .decoration1{
