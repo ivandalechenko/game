@@ -14,3 +14,4 @@ def get_stage_scores_timer(request): return services.get_stage_scores_timer(requ
 def start_game(request): return services.start_game(request)
 def get_games(request): return services.get_games(request)
 def creating_game(request): return services.creating_game(request)
+def game_over_time_out(request): return services.game_over_time_out(request)

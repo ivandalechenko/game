@@ -2,7 +2,7 @@ from django.db import models
 
 
 class Game(models.Model):
-    last_phase_start = models.DateTimeField(auto_now=True)
+    last_phase_start = models.DateTimeField(auto_now_add=True)
     stage = models.IntegerField(default=0)
     winner = models.IntegerField(default=0)
     timer = models.IntegerField(default=0)
@@ -22,3 +22,4 @@ class GameUserField(models.Model):
     center_score = models.IntegerField()
     minus_score = models.IntegerField()
     score = models.IntegerField()
+    game_over = models.BooleanField(default=0)

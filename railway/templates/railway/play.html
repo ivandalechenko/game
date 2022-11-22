@@ -87,22 +87,17 @@
             </div>
             <br>
         </div>
-        <div id="timer" style="
-            font-size: 170px;
+        <div id="timer" class="dnone" style="
             font-weight: 600;
             color: rgba(100,100,150,1);
             cursor: default;
             pointer-events: none;
             font-style: italic;
-            text-shadow: 3px 3px 0px rgba(0,0,0,0.2);
-            opacity: 0.0;
+            text-shadow: 2px 2px 0px rgba(0,0,0,0.2);
+            opacity: 0;
             transition: 1s;
-            position: absolute;
-            top: 459px;
-            left: 636px;
-            width: 20px;
-            margin: 0;
-        ">0:30</div>
+            font-size: 40px;
+        ">0:00</div>
         <button id="send_move" class="btn_next_phase font_bold img_route block_left dblock">Загрузка...</button>
         <br>
         <div id="status" class="block_left w320 status_font"></div>
@@ -124,6 +119,7 @@
     var URL_GET_STAGE_SCORES_TIMER = '{% url 'railway_get_stage_scores_timer' %}'
     var URL_START_GAME = '{% url 'railway_start_game' %}'
     var URL_CROSS = '{% static 'railway/img/textures/'%}err.png'
+    var URL_GAME_OVER_TIME_OUT = '{% url 'railway_game_over_time_out' %}'
 
 </script>
 <script src="{% static 'railway/js/play.js' %}"></script>

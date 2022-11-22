@@ -15,6 +15,7 @@ urlpatterns = [
     path('start_game', start_game, name='railway_start_game'),
     path('get_games', get_games, name='railway_get_games'),
     path('creating_game', creating_game, name='railway_creating_game'),
+    path('game_over_time_out', game_over_time_out, name='railway_game_over_time_out'),
 
 
 

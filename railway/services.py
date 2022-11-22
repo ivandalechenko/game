@@ -1,10 +1,14 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 
+from django.utils.timezone import now
+
 from django.contrib.auth.models import User
 from .models import *
 import json
 import random
+
+from datetime import datetime
 
 FINISH_STAGE = 7
 
@@ -113,38 +117,20 @@ def send_move(request):
     game_user_field.minus_score = request.POST['minus_score']
     game_user_field.rail_score = request.POST['rail_score']
     game_user_field.road_score = request.POST['road_score']
+    if stage == 8:
+        game_user_field.game_over = 1
     game_user_field.save()
     return HttpResponse(next_route(request.POST['game_id'], stage))
-
-
-def start_game(request, game_id = -1):
-    if game_id == -1:
-        game_id = request.POST['game_id']
-
-    game = Game.objects.get(id=int(game_id))
-    game.players_count = len(GameUserField.objects.filter(game_id=game_id)) 
-    if game.stage != 1:
-        game.stage = 1
-        route_rolls = json.loads(game.route_rolls)
-        route_rolls.append([])
-        route_rolls[-1].append(random.randint(0, 5))
-        route_rolls[-1].append(random.randint(0, 5))
-        route_rolls[-1].append(random.randint(0, 5))
-        route_rolls[-1].append(random.randint(6, 8))
-        game.route_rolls = json.dumps(route_rolls)
-    
-    game.save()
-    return 0
 
 
 def next_route(game_id, stage):
     response = {'status': 1, 'expected_users_list': []}
     game_user_fields = GameUserField.objects.filter(game_id=game_id)
     for game_user_field in game_user_fields:
-        if game_user_field.stage < stage:
+        if game_user_field.stage < stage and game_user_field.game_over != 1:
             response['status'] = 0
             user = User.objects.get(id=game_user_field.user_id)
-            response['expected_users_list'].append({'username': user.username, 'score': game_user_field.score})
+            response['expected_users_list'].append({'username': user.username})
     if response['status'] == 1:
         game = Game.objects.get(id=game_id)
         if game.stage < stage:
@@ -156,16 +142,54 @@ def next_route(game_id, stage):
                 route_rolls[-1].append(random.randint(0, 5))
                 route_rolls[-1].append(random.randint(6, 8))
                 game.route_rolls = json.dumps(route_rolls)
+                game.last_phase_start = now()
             game.stage = game.stage + 1
             game.save()
 
     return json.dumps(response)
 
 
+def start_game(request, game_id = -1):
+    if game_id == -1:
+        game_id = request.POST['game_id']
+
+    game = Game.objects.get(id=int(game_id))
+    game.players_count = len(GameUserField.objects.filter(game_id=game_id)) 
+    if game.stage < 1:
+        game.stage = 1
+        route_rolls = json.loads(game.route_rolls)
+        route_rolls.append([])
+        route_rolls[-1].append(random.randint(0, 5))
+        route_rolls[-1].append(random.randint(0, 5))
+        route_rolls[-1].append(random.randint(0, 5))
+        route_rolls[-1].append(random.randint(6, 8))
+        game.route_rolls = json.dumps(route_rolls)
+        game.last_phase_start = now()
+
+    game.save()
+    return HttpResponse(0)
+
+
+def game_over_time_out(request):
+    game_id = request.POST['game_id']
+    game = Game.objects.get(id=game_id)
+    game_user_field = GameUserField.objects.get(game_id=game_id, user_id=request.user.pk)
+    if game_user_field.stage<=game.stage:
+        game_user_field.game_over = 1;
+        game_user_field.save()
+    return HttpResponse(0)
+
+
 def get_stage_scores_timer(request):
     game_id = request.POST['game_id']
     game_user_field = GameUserField.objects.get(game_id=game_id, user_id=request.user.pk)
     game = Game.objects.get(id=game_id)
+    time_remaining = int(round(game.last_phase_start.timestamp())) + game.timer - int(round(now().timestamp()));
+    game_over = game_user_field.game_over
+    if game.timer > 0 and time_remaining < 0:
+        game_over_time_out(request)
+        game_over = 1
+
     response = {'stage': game_user_field.stage, 
                 'reloadOnWaitingPlayers': 0, 
                 'score': game_user_field.score, 
@@ -175,11 +199,14 @@ def get_stage_scores_timer(request):
                 'rail_score': game_user_field.rail_score, 
                 'road_score': game_user_field.road_score,
                 'timer': game.timer,
+                'time_remaining': time_remaining,
+                'game_over': game_over,
                 }
+
+
 
     if response['stage'] > game.stage:
         response['reloadOnWaitingPlayers'] = 1
-
     return HttpResponse(json.dumps(response))
 
 
