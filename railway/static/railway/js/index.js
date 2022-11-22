@@ -14,9 +14,11 @@ function get_games() {
         }else{
             availableGamesListStr = '';
         }
+        
         for (var i = 0; i < obj.length; i++) {
             availableGamesListStr = availableGamesListStr + '<br><br><a href="'+URL_JOIN_GAME+
-                '?game_id='+obj[i].id+'">Стол #'+obj[i].id+' <br>'+SVG_PEOPLE + obj[i].players_count +'/'+ obj[i].max_players_count +' -'+ SVG_TIMER + obj[i].timer +'сек.</a>'
+                '?game_id='+obj[i].id+'"><button class="font_semibold btn_game_list_element w100">Стол #'+obj[i].id+' <br>'+
+                SVG_PEOPLE + obj[i].players_count +'/'+ obj[i].max_players_count +' -'+ SVG_TIMER + obj[i].timer +'сек.</button></a>'
         }
         document.getElementById('available_games_list').innerHTML = availableGamesListStr;
         setTimeout(get_games, REQUEST_FREQUENCY);

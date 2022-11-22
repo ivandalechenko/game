@@ -7,6 +7,12 @@
 body{
     min-height: 100vh;
 }
+a {
+    color: black;
+}
+button{
+    color: black;
+}
 
 body {
     margin: 0;
@@ -45,6 +51,7 @@ button{
     -webkit-tap-highlight-color: transparent;
     padding: 10px 22px;
     font-size: 20px;
+    color: black;
     animation: btn_default 4s ease-in-out 0.5s infinite alternate;
 }
 @keyframes btn_default {
@@ -72,9 +79,9 @@ button{
     top: 0px;
 }
 .navbar{
-    text-align: right;
     padding: 20px 0px;
     font-size: 18px;
+    text-align: right;
 }
 h1{
     margin: 0;

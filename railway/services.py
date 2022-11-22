@@ -236,7 +236,7 @@ def get_status(request):
     game = Game.objects.get(id=game_id)
     response = {'status': 1, 'expected_users_list': []}
     if game.stage == 0:
-        response = {'status': 0, 'expected_users_list': []}
+        response = {'status': 0, 'expected_users_list': [], 'max_players_count': game.players_count, 'timer': game.timer}
         game_user_fields = GameUserField.objects.filter(game_id=game_id)
         for game_user_field in game_user_fields:
             user = User.objects.get(id=game_user_field.user_id)

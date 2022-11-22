@@ -14,52 +14,25 @@
             <br>
             <br>
             <br>
-            СОЗДАНИЕ СТОЛА
-            <br><br>
-                    <br>
-                    <br>
-                    <br>
             <div class="padding_top width_btn margin_auto">
-                <form action="{% url 'railway_create_game' %}" class="font_semibold" method="post" oninput="timer_label.value = timer_input.valueAsNumber + 'сек.'; players_count_label.value = players_count_input.valueAsNumber + ' игроков'; ">
+                <form action="{% url 'railway_create_game' %}" class="font_semibold" method="post" oninput="update_form()">
                     {% csrf_token %}
-                    <label>
-                        <input name="is_private" type="checkbox" value="1">
-                        Приватная игра
-                    </label>
-                    <br>
-                    <br>
-                    <br>
 
-                    <input type="range" value="0" step="5" min="0" max="120" id="timer_input" name="timer" list="timer_list">
-<!--                     <datalist id="timer_list">
-                        <option value="0" label="0">
-                        <option value="5" label="5">
-                        <option value="10" label="10">
-                        <option value="15" label="15">
-                        <option value="20" label="20">
-                        <option value="25" label="25">
-                        <option value="30" label="30">
-                        <option value="35" label="35">
-                        <option value="40" label="40">
-                        <option value="45" label="45">
-                        <option value="50" label="50">
-                        <option value="55" label="55">
-                        <option value="60" label="60">
-                    </datalist> -->
-                    <output for="timer_input" name="timer_label">Без таймера</output>
+                    <input type="range" value="0" step="10" min="0" max="120" id="timer_input" name="timer">
+                    <div id="timer_label">Без таймера</div>
+                    
                     <br><br>
-                    <input type="range" value="5" min="1" max="8" id="players_count_input" name="players_count" list="players_count_list">
-                    <datalist id="players_count_list">
-                        <option value="1" label="1">
-                        <option value="2" label="2">
-                        <option value="3" label="3">
-                        <option value="4" label="4">
-                        <option value="5" label="5">
-                        <option value="6" label="6">
-                        <option value="7" label="7">
-                        <option value="8" label="8">
-                    </datalist>
-                    <output for="players_count_input" name="players_count_label">5 игроков</output>
+                    
+                    <input type="range" value="5" min="1" max="8" id="players_count_input" name="players_count">
+                    <div id="players_count_label">5 игроков</div>
+                    
+                    <br>
+                    <br>
+                    <br>
+                    <input name="is_private" id="is_private" type="checkbox" value="1">
+                    <label for="is_private"><span></span> Приватная игра</label>
+
+                    <br>
                     <br>
                     <br>
                     <br>

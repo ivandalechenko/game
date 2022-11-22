@@ -2,14 +2,14 @@
 
 {% block head %}
 {% load static %} 
-<title>mamgo</title>
+<title>Игра</title>
 <link href="{% static 'railway/css/play.css' %}" type="text/css" rel="stylesheet">
 {% endblock %} 
 
 {% block content %} 
 {% if request.user.is_authenticated %}
 <div id="game" class="display_flex">      
-    <div class="display_flex_50">
+    <div id="game_field_wrapper" class="display_flex_25">
         <div id="game_field" class="dnone block_right">
             <div id='cross_list'>
             </div>
@@ -87,6 +87,8 @@
             </div>
             <br>
         </div>
+        <button id="send_move" class="btn_next_phase font_bold img_route block_left dblock">Загрузка...</button>
+        <br>
         <div id="timer" class="dnone" style="
             font-weight: 600;
             color: rgba(100,100,150,1);
@@ -97,10 +99,10 @@
             opacity: 0;
             transition: 1s;
             font-size: 40px;
+            padding-left: 50px;
         ">0:00</div>
-        <button id="send_move" class="btn_next_phase font_bold img_route block_left dblock">Загрузка...</button>
         <br>
-        <div id="status" class="block_left w320 status_font"></div>
+        <div id="status" class="block_left status_font font_semibold padding10"></div>
     </div>
     
 </div>

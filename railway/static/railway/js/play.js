@@ -92,11 +92,7 @@ function timer_exp() {
     }else{
         _timeRemaining = _timeRemaining-1;
     }
-    if (_timeRemaining<10){
-        document.getElementById('timer').innerHTML = '0:0'+_timeRemaining;
-    }else{
-        document.getElementById('timer').innerHTML = '0:'+_timeRemaining;
-    }
+    document.getElementById('timer').innerHTML = _timeRemaining+' сек.';
     if (parseInt((_timer-_timeRemaining)*(100/_timer))<10){
         document.getElementById('timer').style.opacity = '0.0'+parseInt((_timer-_timeRemaining)*(100/_timer));
     }else if (parseInt((_timer-_timeRemaining)*(100/_timer))<100){
@@ -138,14 +134,27 @@ function get_status() {
             document.getElementById('send_move').innerHTML = "Запустить игру";
             document.getElementById('send_move').classList.add('mt60px');
             document.getElementById('send_move').onclick = function(event) {start_game();};
-            waitingStr = 'Ожидание запуска игры. Код: '+GAME_ID+'<br><br>Игроки: <br>';
+            document.title = 'Ожидание игроков | Игра '+GAME_ID;
+            if (obj.timer == 0) {
+                timerStr = 'Таймер: без ограничений'
+            }else{
+                timerStr = 'Таймер: '+obj.timer+' секунд';
+            }
+            waitingStr = '<br><span class="font_iregular">Игра начнётся как только наполнится лобби, или вы можете запустить игру самостоятельно.</span> <br><br> Код игры: '+GAME_ID+'<br><br>'+timerStr+'<br><br>Игроки ('+obj.expected_users_list.length+'/'+obj.max_players_count+'): ';
             for (var i = 0; i < obj.expected_users_list.length; i++) {
-                waitingStr = waitingStr + (i+1) + '. ' + obj.expected_users_list[i].username + '<br>';
+                waitingStr += obj.expected_users_list[i].username;
+                if (i != obj.expected_users_list.length-1){
+                    waitingStr += ', ';
+                }
             }
             document.getElementById('status').innerHTML = waitingStr;
         }else{
+            document.getElementById('game_field_wrapper').classList.remove('display_flex_25');
+            document.getElementById('game_field_wrapper').classList.add('display_flex_50');
             document.getElementById('send_move').classList.remove('mt60px');
             document.getElementById('status').innerHTML = '';
+            document.getElementById('status').classList.add('w320');
+            document.getElementById('status').classList.add('padding10');
             document.getElementById('tiles_block').classList.remove('dblock');
             document.getElementById('send_move').classList.add('dnone');
             document.getElementById('tiles_block').classList.remove('dnone');
@@ -1028,6 +1037,8 @@ function get_stage_scores_timer() {
                 document.getElementById('game_field').classList.remove('bck'+i);
             }
             document.getElementById('game_field').classList.add('bck'+_numOfMove);
+            document.title = _numOfMove+' Ход | Игра '+GAME_ID;
+
             if (_numOfMove == FINISH_STAGE+1){
                 end_of_game();
             }
